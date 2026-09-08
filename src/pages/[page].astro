@@ -4,7 +4,10 @@ import { navigation } from '../config/navigation';
 export function getStaticPaths() {
   return [
     ...navigation.filter(
-      (item) => item.href !== '/' && item.href !== '/features/',
+      (item) =>
+        item.href !== '/' &&
+        item.href !== '/features/' &&
+        item.href !== '/examples/',
     ),
     { label: 'Privacy', href: '/privacy/' },
   ].map((item) => ({

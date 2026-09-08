@@ -1,0 +1,210 @@
+---
+import SiteFrame from '../layouts/SiteFrame.astro';
+import Badge from '../components/Badge.astro';
+import { solverDocument } from '../config/solver-evidence';
+
+const benchmarks = [
+  {
+    id: 'cantilever',
+    number: '01',
+    family: 'Q4 · Plane stress',
+    title: 'Cantilever beam',
+    description:
+      'A slender rectangular beam checks the displacement response of the fully integrated Q4 formulation against Euler–Bernoulli beam theory.',
+    model: ['20 × 4 Q4 mesh', 'End load 1', 'E = 1000', 'ν = 0.25'],
+    comparison: [
+      ['Quantity', 'Free-end vertical displacement'],
+      ['Reference', '−4.0'],
+      ['FinEleMethod', '−3.63828'],
+      ['Relative error', '9.04% (limit 10%)'],
+    ],
+    note: 'The low-order, fully integrated Q4 mesh is artificially stiff in slender bending; refinement and formulation improvements should reduce the difference.',
+    document: 'docs/benchmarks/cantilever_beam.md',
+    input: 'examples/abaqus/q4_cantilever.inp',
+  },
+  {
+    id: 'plate-hole',
+    number: '02',
+    family: 'Q4 · Plane stress',
+    title: 'Plate with a hole',
+    description:
+      'A symmetry-reduced quarter plate checks the stress concentration against the Kirsch elasticity solution at the same interior Gauss-point location.',
+    model: [
+      '8 × 16 graded Q4 mesh',
+      'Hole radius 1',
+      'Remote stress 1',
+      'Outer radius 10',
+    ],
+    comparison: [
+      ['Quantity', 'Hoop stress near hole crown'],
+      ['Kirsch reference', '2.58158'],
+      ['FinEleMethod', '2.63094'],
+      ['Relative error', '1.91% (limit 10%)'],
+    ],
+    note: 'The comparison uses an interior Gauss point. It does not incorrectly compare that value with the boundary stress concentration of 3.',
+    document: 'docs/benchmarks/plate_with_hole.md',
+    input: 'examples/abaqus/q4_plate_with_hole.inp',
+    image: true,
+  },
+  {
+    id: 'compression',
+    number: '03',
+    family: 'H8 · Three-dimensional',
+    title: 'Block under compression',
+    description:
+      'A unit cube under uniform pressure checks the H8 displacement, strain, stress, principal-stress and reaction results against the exact uniaxial solution.',
+    model: ['1 fully integrated H8', 'Pressure 10', 'E = 1000', 'ν = 0.25'],
+    comparison: [
+      ['Quantity', 'Top-face Z displacement'],
+      ['Exact', '−0.01'],
+      ['FinEleMethod', '−0.01'],
+      ['Automated tolerance', '1 × 10⁻¹¹'],
+    ],
+    note: 'All eight Gauss points also reproduce the documented transverse strains, axial stress, von Mises stress and principal stresses within the test tolerance.',
+    document: 'docs/benchmarks/h8_compression.md',
+    input: 'examples/abaqus/h8_compression.inp',
+  },
+] as const;
+---
+
+<SiteFrame
+  title="Examples"
+  description="Review FinEleMethod analytical benchmark comparisons for a Q4 cantilever beam, Q4 plate with a hole and H8 block under compression."
+>
+  <main id="main" tabindex="-1" class="page-container flex-1">
+    <header class="border-b border-line py-14 sm:py-20">
+      <Badge>Three analytical comparisons · Reproducible inputs</Badge>
+      <div class="mt-7 grid gap-8 lg:grid-cols-[1.25fr_1fr] lg:items-end">
+        <h1 class="max-w-3xl text-4xl font-semibold sm:text-6xl">
+          Benchmarks with their assumptions visible.
+        </h1>
+        <p class="max-w-xl text-lg text-muted">
+          Each example pairs a checked-in ABAQUS input with an analytical
+          reference, a stated acceptance limit and the reason that comparison is
+          appropriate.
+        </p>
+      </div>
+      <nav class="mt-8" aria-label="Benchmarks on this page">
+        <ul class="flex flex-wrap gap-2">
+          {
+            benchmarks.map(({ id, title }) => (
+              <li>
+                <a
+                  class="inline-flex min-h-11 items-center rounded-control border border-line bg-surface px-4 py-2 text-sm hover:bg-elevated hover:underline"
+                  href={`#${id}`}
+                >
+                  {title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+
+    <div class="divide-y divide-line">
+      {
+        benchmarks.map((benchmark) => (
+          <article
+            id={benchmark.id}
+            aria-labelledby={`${benchmark.id}-title`}
+            class="py-12 sm:py-16"
+          >
+            <div class="grid gap-8 lg:grid-cols-[15rem_1fr]">
+              <header>
+                <p class="font-mono text-sm text-accent">
+                  {benchmark.number} / {benchmark.family}
+                </p>
+                <h2
+                  id={`${benchmark.id}-title`}
+                  class="mt-3 text-3xl font-semibold"
+                >
+                  {benchmark.title}
+                </h2>
+                <p class="mt-4 text-muted">{benchmark.description}</p>
+              </header>
+
+              <div class="min-w-0">
+                {'image' in benchmark && benchmark.image && (
+                  <figure class="mb-8 overflow-hidden rounded-panel border border-line bg-surface">
+                    <a
+                      href="/images/plate-hole-displacement.png"
+                      aria-label="Open the full-size plate-with-a-hole displacement contour"
+                    >
+                      <img
+                        src="/images/plate-hole-displacement.png"
+                        width="1380"
+                        height="630"
+                        loading="lazy"
+                        class="h-auto w-full"
+                        alt="ParaView displacement-magnitude contour of the supplied quarter plate-with-a-hole example, changing from blue on the left to amber on the right."
+                      />
+                    </a>
+                    <figcaption class="px-5 py-4 text-sm text-muted">
+                      Supplied ParaView displacement view · The numerical
+                      comparison below uses hoop stress.
+                    </figcaption>
+                  </figure>
+                )}
+
+                <ul
+                  class="flex flex-wrap gap-2"
+                  aria-label={`${benchmark.title} model summary`}
+                >
+                  {benchmark.model.map((item) => (
+                    <li class="rounded-control border border-line bg-elevated px-3 py-2 font-mono text-sm tabular-nums">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                <dl class="mt-6 grid gap-px overflow-hidden rounded-panel border border-line bg-line sm:grid-cols-2 xl:grid-cols-4">
+                  {benchmark.comparison.map(([term, detail]) => (
+                    <div class="min-w-0 bg-surface p-5">
+                      <dt class="text-sm text-muted">{term}</dt>
+                      <dd class="mt-2 font-mono font-semibold tabular-nums">
+                        {detail}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <p class="mt-5 max-w-4xl text-muted">{benchmark.note}</p>
+                <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+                  <a
+                    class="text-link inline-flex min-h-11 items-center"
+                    href={solverDocument(benchmark.document)}
+                  >
+                    Read benchmark method
+                  </a>
+                  <a
+                    class="text-link inline-flex min-h-11 items-center"
+                    href={solverDocument(benchmark.input)}
+                  >
+                    View runnable input
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <aside
+      aria-labelledby="interpretation-title"
+      class="mb-14 rounded-panel border border-line bg-elevated p-6 sm:mb-20 sm:p-8"
+    >
+      <p class="eyebrow text-accent">How to interpret these checks</p>
+      <h2 id="interpretation-title" class="mt-4 text-3xl font-semibold">
+        A benchmark validates a defined case—not every model.
+      </h2>
+      <p class="mt-5 max-w-4xl text-muted">
+        These comparisons exercise specific formulations, meshes, loads and
+        recovery locations. They support regression testing, but every new model
+        still requires independent checks of geometry, units, boundary
+        conditions, mesh suitability and expected mechanics.
+      </p>
+    </aside>
+  </main>
+</SiteFrame>

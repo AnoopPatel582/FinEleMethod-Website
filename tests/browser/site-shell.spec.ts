@@ -118,6 +118,8 @@ test('navigation stays usable without JavaScript', async ({ browser }) => {
   const nav = page.getByRole('navigation', { name: 'Primary' });
   await expect(nav).toBeVisible();
   await nav.getByRole('link', { name: 'Examples' }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Examples');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Benchmarks with their assumptions visible.',
+  );
   await context.close();
 });
