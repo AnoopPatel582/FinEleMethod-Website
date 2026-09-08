@@ -30,3 +30,4 @@
 - All 36 Chromium/WebKit scenarios pass after updating the shell's no-JavaScript assertion from the retired placeholder heading to the real Examples heading.
 - The complete matrix contains 54 scenarios. All 18 Firefox scenarios fail before startup with `browserType.launch: spawn UNKNOWN` because of the known machine-specific limitation.
 - Firefox stays enabled in required Windows and Ubuntu GitHub CI; the pull request must not merge until those clean-runner checks pass.
+- Windows and Ubuntu required checks passed in [run 34247364989](https://github.com/AnoopPatel582/FinEleMethod-Website/actions/runs/34247364989). PR #5 was merged as `5a45352` on 2026-09-08.

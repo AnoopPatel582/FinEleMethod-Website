@@ -1,0 +1,258 @@
+---
+import SiteFrame from '../layouts/SiteFrame.astro';
+import Badge from '../components/Badge.astro';
+import { solverDocument } from '../config/solver-evidence';
+
+const firstAnalysis = [
+  {
+    title: 'Launch the workbench',
+    detail:
+      'Open FinEleMethodGui.exe from the installed application or extracted portable folder.',
+  },
+  {
+    title: 'Choose a verified model',
+    detail:
+      'Browse to examples/abaqus/q4_tension.inp and confirm the Q4 plane-stress model summary.',
+  },
+  {
+    title: 'Create a project',
+    detail:
+      'Choose a writable parent folder and create a project such as FirstStudy, separate from the application files.',
+  },
+  {
+    title: 'Run the analysis',
+    detail:
+      'Start the analysis and wait for the completed status before opening its result or numbered run folder.',
+  },
+  {
+    title: 'Inspect the VTU result',
+    detail:
+      'Open the result in ParaView, click Apply, select a result field and use Warp By Vector for a deformation view.',
+  },
+] as const;
+
+const documentGroups = [
+  {
+    id: 'start',
+    label: 'Start and install',
+    description: 'Choose the guide that matches how you obtained FinEleMethod.',
+    documents: [
+      {
+        title: 'Windows ZIP quick start',
+        detail: 'Extract, verify and run the portable Windows package.',
+        path: 'docs/WINDOWS_QUICK_START.md',
+      },
+      {
+        title: 'Windows installer',
+        detail: 'Install, verify and remove the offline installer safely.',
+        path: 'docs/INSTALLER.md',
+      },
+      {
+        title: 'Beginner’s source guide',
+        detail: 'Configure MSVC and vcpkg, build, test and run from source.',
+        path: 'docs/BEGINNERS_GUIDE.md',
+      },
+    ],
+  },
+  {
+    id: 'understand',
+    label: 'Understand the solver',
+    description: 'Trace the architecture and finite-element formulations.',
+    documents: [
+      {
+        title: 'Architecture',
+        detail: 'Application layers, process boundary and analysis data flow.',
+        path: 'docs/ARCHITECTURE.md',
+      },
+      {
+        title: 'Q4 formulation',
+        detail: 'Plane-stress and plane-strain interpolation and integration.',
+        path: 'docs/formulations/Q4.md',
+      },
+      {
+        title: 'H8 formulation',
+        detail: 'Three-dimensional interpolation, stiffness and recovery.',
+        path: 'docs/formulations/H8.md',
+      },
+      {
+        title: 'System solution',
+        detail: 'Assembly, constraints, CSR, Conjugate Gradient and reactions.',
+        path: 'docs/formulations/SYSTEM_SOLUTION.md',
+      },
+    ],
+  },
+  {
+    id: 'verify',
+    label: 'Verify and reproduce',
+    description:
+      'Review the evidence, acceptance boundaries and demonstration path.',
+    documents: [
+      {
+        title: 'Release validation',
+        detail:
+          'Automated package checks and recorded clean-machine acceptance.',
+        path: 'docs/RELEASE_VALIDATION.md',
+      },
+      {
+        title: 'GUI acceptance',
+        detail: 'The maintained interactive workbench test checklist.',
+        path: 'docs/GUI_ACCEPTANCE.md',
+      },
+      {
+        title: 'Project decisions',
+        detail: 'Confirmed scope, architecture and change-control rules.',
+        path: 'docs/PROJECT_DECISIONS.md',
+      },
+      {
+        title: 'Demonstration plan',
+        detail: 'The timed sequence for the planned 15-minute presentation.',
+        path: 'docs/DEMONSTRATION.md',
+      },
+    ],
+  },
+] as const;
+---
+
+<SiteFrame
+  title="Documentation"
+  description="Start a FinEleMethod analysis and find the authoritative user guides, architecture, formulations and validation records."
+>
+  <main id="main" tabindex="-1" class="page-container flex-1">
+    <header class="border-b border-line py-14 sm:py-20">
+      <Badge>Practical guide · Commit-pinned technical sources</Badge>
+      <div class="mt-7 grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-end">
+        <h1 class="max-w-3xl text-4xl font-semibold sm:text-6xl">
+          Start with a model. Trace every layer.
+        </h1>
+        <p class="max-w-xl text-lg text-muted">
+          Run your first analysis here, then move into the maintained solver
+          guides for installation, architecture, formulations and validation.
+        </p>
+      </div>
+      <nav class="mt-8" aria-label="Documentation on this page">
+        <ul class="flex flex-wrap gap-2">
+          <li>
+            <a
+              class="inline-flex min-h-11 items-center rounded-control border border-line bg-surface px-4 py-2 text-sm hover:bg-elevated hover:underline"
+              href="#first-analysis">First analysis</a
+            >
+          </li>
+          {
+            documentGroups.map(({ id, label }) => (
+              <li>
+                <a
+                  class="inline-flex min-h-11 items-center rounded-control border border-line bg-surface px-4 py-2 text-sm hover:bg-elevated hover:underline"
+                  href={`#${id}`}
+                >
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+
+    <section
+      id="first-analysis"
+      aria-labelledby="first-analysis-title"
+      class="border-b border-line py-12 sm:py-16"
+    >
+      <div class="grid gap-8 lg:grid-cols-[15rem_1fr]">
+        <header>
+          <p class="eyebrow text-accent">First analysis</p>
+          <h2 id="first-analysis-title" class="mt-4 text-3xl font-semibold">
+            From launch to result.
+          </h2>
+          <p class="mt-4 text-muted">
+            These steps use the supplied Q4 tension model in the Windows
+            workbench.
+          </p>
+        </header>
+        <ol
+          class="grid gap-px overflow-hidden rounded-panel border border-line bg-line md:grid-cols-2"
+        >
+          {
+            firstAnalysis.map((step, index) => (
+              <li class="min-w-0 bg-surface p-6 md:last:col-span-2">
+                <p class="font-mono text-sm text-accent">
+                  Step {String(index + 1).padStart(2, '0')}
+                </p>
+                <h3 class="mt-3 text-xl font-semibold">{step.title}</h3>
+                <p class="mt-3 text-muted">{step.detail}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <aside class="mt-8 rounded-panel border border-line bg-elevated p-6">
+        <h3 class="text-xl font-semibold">Expected verification result</h3>
+        <p class="mt-3 max-w-4xl text-muted">
+          For <code class="font-mono text-ink">q4_tension.inp</code>, the
+          analytical right-edge X displacement is <code
+            class="font-mono text-ink tabular-nums">0.01</code
+          > and the uniform X stress is <code
+            class="font-mono text-ink tabular-nums">10.0</code
+          >. Supply consistent units; automatic unit conversion is not
+          implemented.
+        </p>
+      </aside>
+    </section>
+
+    <div class="divide-y divide-line">
+      {
+        documentGroups.map((group, groupIndex) => (
+          <section
+            id={group.id}
+            aria-labelledby={`${group.id}-title`}
+            class="grid gap-8 py-12 sm:py-16 lg:grid-cols-[15rem_1fr]"
+          >
+            <header>
+              <p class="font-mono text-sm text-accent">
+                0{groupIndex + 1} / REFERENCE
+              </p>
+              <h2 id={`${group.id}-title`} class="mt-3 text-2xl font-semibold">
+                {group.label}
+              </h2>
+              <p class="mt-4 text-muted">{group.description}</p>
+            </header>
+            <ul class="grid gap-4 md:grid-cols-2">
+              {group.documents.map((document) => (
+                <li>
+                  <a
+                    class="group block h-full rounded-panel border border-line bg-surface p-6 hover:bg-elevated"
+                    href={solverDocument(document.path)}
+                  >
+                    <span class="text-lg font-semibold group-hover:underline">
+                      {document.title}
+                    </span>
+                    <span class="mt-3 block text-muted">{document.detail}</span>
+                    <span class="mt-5 block font-mono text-sm text-accent">
+                      Open maintained document →
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+
+    <aside
+      aria-labelledby="documentation-boundary-title"
+      class="mb-14 rounded-panel border border-line bg-elevated p-6 sm:mb-20 sm:p-8"
+    >
+      <p class="eyebrow text-accent">Documentation boundary</p>
+      <h2 id="documentation-boundary-title" class="mt-4 text-3xl font-semibold">
+        Match instructions to the exact build you use.
+      </h2>
+      <p class="mt-5 max-w-4xl text-muted">
+        Technical links on this page are pinned to the solver revision reviewed
+        for the website. For a downloaded release, also keep its version,
+        checksum and release manifest together. Independently validate results
+        before engineering use.
+      </p>
+    </aside>
+  </main>
+</SiteFrame>

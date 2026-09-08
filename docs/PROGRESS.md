@@ -15,7 +15,7 @@
 
 ## Next stage
 
-- Verify the Examples-page PR on Windows/Linux, then build the Documentation page.
+- Verify the Documentation-page PR on Windows/Linux, then build the Download page from verified release metadata.
 
 ## Stage 2: design system
 
@@ -69,6 +69,17 @@
 - On-page navigation, both themes, Axe checks and responsive coverage from 320 to 2560 CSS pixels.
 - Formatting, lint, Astro checks, 25 unit tests, the eight-route production build and all 36 Chromium/WebKit scenarios pass locally.
 - The 18 Firefox scenarios fail before startup because of the documented machine-specific launch limitation; all 54 scenarios remain enabled for required clean-runner CI before merge.
+- Both required checks passed in run 34247364989; PR #5 merged as `5a45352` on 2026-09-08.
+
+## Stage 7: Documentation page
+
+- Practical five-step Windows-workbench guide from launch through ParaView result inspection.
+- Expected Q4 tension verification values and consistent-unit limitation stated beside the workflow.
+- Eleven commit-pinned source links grouped into installation, solver concepts and validation references.
+- The website provides the concise user path while detailed architecture, formulation and validation documents remain authoritative in the solver repository.
+- On-page navigation, both themes, Axe checks and responsive coverage from 320 to 2560 CSS pixels.
+- Formatting, lint, Astro checks, 25 unit tests, the eight-route production build and all 40 Chromium/WebKit scenarios pass locally.
+- The 20 Firefox scenarios fail before startup because of the documented machine-specific launch limitation; all 60 scenarios remain enabled for required clean-runner CI before merge.
 
 ## Before launch
 

@@ -121,5 +121,12 @@ test('navigation stays usable without JavaScript', async ({ browser }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Benchmarks with their assumptions visible.',
   );
+  await page
+    .getByRole('navigation', { name: 'Primary' })
+    .getByRole('link', { name: 'Documentation', exact: true })
+    .click();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Start with a model. Trace every layer.',
+  );
   await context.close();
 });
