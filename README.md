@@ -1,7 +1,7 @@
 # FinEleMethod Website
 
 - Product website for the Windows FinEleMethod finite-element solver.
-- Home-page stage: evidence-based solver overview, original ParaView result image, shared responsive shell, and System/Light/Dark themes.
+- Current pages: evidence-based Home and Features pages, shared responsive shell, original ParaView result image, and System/Light/Dark themes.
 - No backend or database.
 - Copyright © Anoop Patel. All rights reserved. Third-party dependencies retain their licences.
 
@@ -22,7 +22,7 @@
 - `npm run preview`: serve the production build locally after verification.
 - `npm run format`: apply formatting.
 - CI runs the same verification on Linux and Windows.
-- All eight routes remain noindex during development. Home presents the solver; the original component preview is at `/design-system/`. Other product routes clearly identify their unfinished content. Remaining pages and deployment are pending.
+- All eight routes remain noindex during development. Home presents the solver, Features documents the implemented scope and boundaries, and the original component preview is at `/design-system/`. Other product routes clearly identify their unfinished content. Remaining pages and deployment are pending.
 - Browser screenshots and failure traces are written to ignored test-results/ and playwright-report/ directories.
 - Lighthouse CI and full real-device acceptance remain later release checks.
 

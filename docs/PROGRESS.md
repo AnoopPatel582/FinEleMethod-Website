@@ -15,7 +15,7 @@
 
 ## Next stage
 
-- Verify the Home-page PR on Windows/Linux, then build the Features page.
+- Verify the Features-page PR on Windows/Linux, then build the Examples page from validated benchmark evidence.
 
 ## Stage 2: design system
 
@@ -48,6 +48,16 @@
 - Component preview preserved at `/design-system/`; six remaining product pages still explicitly labelled incomplete.
 - New browser tests cover evidence links, image loading, workflow navigation, 200% text enlargement and screenshots in both themes.
 - All pages remain noindex; release metadata, direct installer links and deployment are deferred.
+- Both required checks passed; PR #3 merged as `fc68123` on 2026-09-08.
+
+## Stage 5: Features page
+
+- Capability catalogue for analysis scope, model input, numerical pipeline, result fields and Windows workbench.
+- Explicit unsupported-scope section and independent-validation warning.
+- On-page navigation, both themes, Axe checks and responsive coverage from 320 to 2560 CSS pixels.
+- Technical links remain pinned to verified solver commit `5941df6`.
+- Formatting, lint, Astro checks, 25 unit tests, the eight-route production build and all 32 Chromium/WebKit scenarios pass locally.
+- The 16 Firefox scenarios fail before startup because of the documented machine-specific launch limitation; all 48 scenarios remain enabled for required clean-runner CI before merge.
 
 ## Before launch
 

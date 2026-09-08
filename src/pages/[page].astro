@@ -3,7 +3,9 @@ import PageLayout from '../layouts/PageLayout.astro';
 import { navigation } from '../config/navigation';
 export function getStaticPaths() {
   return [
-    ...navigation.filter((item) => item.href !== '/'),
+    ...navigation.filter(
+      (item) => item.href !== '/' && item.href !== '/features/',
+    ),
     { label: 'Privacy', href: '/privacy/' },
   ].map((item) => ({
     params: { page: item.href.replaceAll('/', '') },

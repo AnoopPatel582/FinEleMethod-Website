@@ -1,0 +1,232 @@
+---
+import SiteFrame from '../layouts/SiteFrame.astro';
+import Badge from '../components/Badge.astro';
+import { solverDocument } from '../config/solver-evidence';
+
+const groups = [
+  {
+    id: 'analysis',
+    index: '01',
+    title: 'Analysis scope',
+    introduction:
+      'A deliberate linear-static scope keeps each formulation understandable and testable.',
+    items: [
+      [
+        'Q4 plane stress',
+        'Four-node quadrilateral elements read from ABAQUS CPS4 definitions.',
+      ],
+      [
+        'Q4 plane strain',
+        'Four-node quadrilateral elements read from ABAQUS CPE4 definitions.',
+      ],
+      [
+        'H8 solid',
+        'Eight-node hexahedral elements read from ABAQUS C3D8 definitions.',
+      ],
+      [
+        'Materials',
+        'Isotropic linear elasticity, with more than one material allowed in a model.',
+      ],
+    ],
+  },
+  {
+    id: 'model',
+    index: '02',
+    title: 'Model input',
+    introduction:
+      'Use a supported subset of the ABAQUS input format while keeping the source model readable.',
+    items: [
+      [
+        'Model entities',
+        'Nodes, elements, node sets, element sets, materials and solid sections.',
+      ],
+      [
+        'Constraints',
+        'Prescribed displacement boundary conditions applied by direct elimination.',
+      ],
+      [
+        'Loads',
+        'Concentrated nodal loads and supported edge or face pressure loads.',
+      ],
+      [
+        'Inspection',
+        'Review element type, counts, materials, loads and constraints before solving.',
+      ],
+    ],
+  },
+  {
+    id: 'solver',
+    index: '03',
+    title: 'Numerical pipeline',
+    introduction:
+      'The FEM formulations and numerical calculations are custom C++ implementations.',
+    items: [
+      [
+        'Element matrices',
+        'Form stiffness and load contributions independently for every element.',
+      ],
+      [
+        'Sparse assembly',
+        'Accumulate global contributions in COO form, then convert the system to CSR.',
+      ],
+      [
+        'Linear solution',
+        'Solve the constrained sparse system with the Conjugate Gradient method.',
+      ],
+      [
+        'Recovery',
+        'Recover support reactions and element result fields after convergence.',
+      ],
+    ],
+  },
+  {
+    id: 'results',
+    index: '04',
+    title: 'Results',
+    introduction:
+      'Export fields in an open visualization format and keep a machine-readable run summary.',
+    items: [
+      ['Primary fields', 'Nodal displacement and reaction force.'],
+      [
+        'Tensor fields',
+        'Strain and stress components in the formulation’s documented order.',
+      ],
+      ['Derived stress', 'Von Mises stress and principal stresses.'],
+      [
+        'Files',
+        'ASCII VTU for ParaView and a protocol-versioned JSON analysis summary.',
+      ],
+    ],
+  },
+  {
+    id: 'workbench',
+    index: '05',
+    title: 'Windows workbench',
+    introduction:
+      'The native interface manages projects while the command-line solver remains independently runnable.',
+    items: [
+      [
+        'Project storage',
+        'Create, save, reopen and recover file-based projects without a database.',
+      ],
+      [
+        'Separate process',
+        'Launch one analysis asynchronously and display validated lifecycle progress.',
+      ],
+      [
+        'Run history',
+        'Keep immutable inputs and outputs in run-0001, run-0002 and later directories.',
+      ],
+      [
+        'Cancellation',
+        'Request cooperative cancellation through the versioned analysis protocol.',
+      ],
+    ],
+  },
+] as const;
+
+const anchors = groups.map(({ id, title }) => ({ id, title }));
+---
+
+<SiteFrame
+  title="Features"
+  description="Explore the implemented analysis, model, solver, result and Windows-workbench capabilities of FinEleMethod."
+>
+  <main id="main" tabindex="-1" class="page-container flex-1">
+    <header class="border-b border-line py-14 sm:py-20">
+      <Badge>Implemented scope · Verified source</Badge>
+      <h1 class="mt-6 max-w-4xl text-4xl font-semibold sm:text-6xl">
+        A finite-element workflow you can trace.
+      </h1>
+      <p class="mt-6 max-w-3xl text-lg text-muted">
+        Follow a model from supported ABAQUS input through custom element
+        calculations, sparse assembly and result recovery. Each capability below
+        maps to the maintained solver documentation.
+      </p>
+      <nav class="mt-8" aria-label="Features on this page">
+        <ul class="flex flex-wrap gap-2">
+          {
+            anchors.map(({ id, title }) => (
+              <li>
+                <a
+                  class="inline-flex min-h-11 items-center rounded-control border border-line bg-surface px-4 py-2 text-sm hover:bg-elevated hover:underline"
+                  href={`#${id}`}
+                >
+                  {title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+
+    <div class="divide-y divide-line">
+      {
+        groups.map(({ id, index, title, introduction, items }) => (
+          <section
+            id={id}
+            aria-labelledby={`${id}-title`}
+            class="grid gap-7 py-12 sm:py-16 lg:grid-cols-[15rem_1fr]"
+          >
+            <div>
+              <p class="font-mono text-sm text-accent">{index} / CAPABILITY</p>
+              <h2 id={`${id}-title`} class="mt-3 text-2xl font-semibold">
+                {title}
+              </h2>
+              <p class="mt-4 text-muted">{introduction}</p>
+            </div>
+            <dl class="grid gap-px overflow-hidden rounded-panel border border-line bg-line sm:grid-cols-2">
+              {items.map(([term, detail]) => (
+                <div class="min-w-0 bg-surface p-6">
+                  <dt class="font-semibold">{term}</dt>
+                  <dd class="mt-3 text-muted">{detail}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ))
+      }
+    </div>
+
+    <section
+      aria-labelledby="boundaries-title"
+      class="mb-14 grid gap-8 rounded-panel border border-line bg-elevated p-6 sm:mb-20 sm:p-8 lg:grid-cols-[1fr_1.2fr]"
+    >
+      <div>
+        <p class="eyebrow text-accent">Know the boundaries</p>
+        <h2 id="boundaries-title" class="mt-4 text-3xl font-semibold">
+          What this scope does not include.
+        </h2>
+      </div>
+      <div>
+        <ul class="list-disc space-y-3 pl-5 text-muted">
+          <li>Nonlinear, dynamic, thermal, contact or buckling analysis.</li>
+          <li>
+            Automatic meshing, model editing or automatic unit conversion.
+          </li>
+          <li>Embedded three-dimensional result visualization.</li>
+          <li>Support for every ABAQUS keyword or element family.</li>
+        </ul>
+        <p class="mt-6 text-muted">
+          Supply consistent units and independently validate every model before
+          engineering use.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+          <a
+            class="text-link inline-flex min-h-11 items-center"
+            href={solverDocument('docs/ARCHITECTURE.md')}
+          >
+            Read the solver architecture
+          </a>
+          <a
+            class="text-link inline-flex min-h-11 items-center"
+            href={solverDocument('docs/PROJECT_DECISIONS.md')}
+          >
+            Review the project scope
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</SiteFrame>
