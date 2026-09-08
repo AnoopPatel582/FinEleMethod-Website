@@ -1,6 +1,6 @@
 # FinEleMethod design direction
 
-Implemented design system. The development page at `/` demonstrates the primitives before product pages are built.
+Implemented design system. The development page at `/design-system/` demonstrates the primitives; `/` now presents the solver Home page.
 
 - Brand: navy, graphite, cyan; clear typography and restrained animation.
 - Support light and dark themes with readable scientific documentation.

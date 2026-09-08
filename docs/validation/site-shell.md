@@ -19,5 +19,6 @@
 - Local final regression: formatting and lint passed; Astro reported zero errors, warnings and hints across 24 files; all 25 unit tests and the seven-page static build passed.
 - All 24 Chromium/WebKit browser tests passed. The keyboard/resize scenario also passed five consecutive repetitions per engine before the final run.
 - Full local verification remains non-green solely because all 12 Firefox scenarios fail before browser startup. Clean-runner CI must pass before merging.
+- Clean Windows and Ubuntu runners both passed for `fd22b05` in [run 34182427344](https://github.com/AnoopPatel582/FinEleMethod-Website/actions/runs/34182427344). PR #2 was merged as `14aa16d` after those required checks passed.
 - The existing local Firefox launch limitation remains documented in design-system.md. The full Firefox suite is retained in CI; a local launch failure is not recorded as a passed test.
 - Actual Safari, screen readers, physical devices, zoom acceptance and Lighthouse remain later acceptance checks. Automated Axe results do not establish complete WCAG conformance.

@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 test('system preference, override, persistence and reset', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'light' });
-  await page.goto('/');
+  await page.goto('/design-system/');
   const html = page.locator('html');
   const select = page.getByLabel('Appearance', { exact: true });
   await expect(html).toHaveAttribute('data-theme', 'light');
@@ -26,7 +26,7 @@ test('invalid preference and blocked storage keep controls working', async ({
   await page.addInitScript(() =>
     localStorage.setItem('finelemethod-theme', 'invalid'),
   );
-  await page.goto('/');
+  await page.goto('/design-system/');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.addInitScript(() => {
     Storage.prototype.getItem = () => {
@@ -44,7 +44,7 @@ test('invalid preference and blocked storage keep controls working', async ({
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
 });
 test('choices synchronize across tabs', async ({ page, context }) => {
-  await page.goto('/');
+  await page.goto('/design-system/');
   const second = await context.newPage();
   await second.goto('/');
   await page.getByLabel('Appearance', { exact: true }).selectOption('light');
@@ -56,7 +56,7 @@ test('choices synchronize across tabs', async ({ page, context }) => {
   await second.close();
 });
 test('keyboard skip link and focus', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/design-system/');
   await page.keyboard.press('Tab');
   const skip = page.getByRole('link', { name: 'Skip to content' });
   await expect(skip).toBeFocused();
@@ -75,7 +75,7 @@ for (const theme of ['light', 'dark'] as const) {
     page,
   }, testInfo) => {
     await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' });
-    await page.goto('/');
+    await page.goto('/design-system/');
     for (const width of [320, 390, 768, 1440, 2560]) {
       await page.setViewportSize({ width, height: 1000 });
       expect(
@@ -112,7 +112,7 @@ test('no JavaScript retains readable content and hides inactive controls', async
     colorScheme: 'light',
   });
   const page = await context.newPage();
-  await page.goto('http://127.0.0.1:4322');
+  await page.goto('http://127.0.0.1:4322/design-system/');
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   await expect(page.getByLabel('Appearance', { exact: true })).toBeHidden();
   await expect(page.locator('html')).toHaveCSS('color-scheme', 'light');
