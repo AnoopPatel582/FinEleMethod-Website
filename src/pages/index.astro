@@ -1,195 +1,196 @@
 ---
 import SiteFrame from '../layouts/SiteFrame.astro';
-import Logo from '../components/Logo.astro';
 import ButtonLink from '../components/ButtonLink.astro';
-import Panel from '../components/Panel.astro';
 import Badge from '../components/Badge.astro';
-const swatches = [
-  { name: 'Canvas', css: 'var(--canvas)', use: 'Page background' },
-  { name: 'Surface', css: 'var(--surface)', use: 'Reading surfaces' },
-  { name: 'Elevated', css: 'var(--elevated)', use: 'Inset information' },
-  { name: 'Ink', css: 'var(--ink)', use: 'Primary content' },
-  { name: 'Muted', css: 'var(--muted)', use: 'Supporting content' },
-  { name: 'Accent', css: 'var(--accent)', use: 'Actions & mesh nodes' },
+import { solverDocument } from '../config/solver-evidence';
+const capabilities = [
+  {
+    label: 'Q4 · 2D',
+    title: 'Plane stress and plane strain',
+    detail:
+      'Four-node quadrilateral elements for two-dimensional linear-static analysis.',
+  },
+  {
+    label: 'H8 · 3D',
+    title: 'Solid mechanics in three dimensions',
+    detail:
+      'Eight-node hexahedral elements with isotropic linear-elastic materials.',
+  },
+  {
+    label: 'VTU · Results',
+    title: 'Results you can inspect',
+    detail:
+      'Displacement, reactions, stress and strain fields, including von Mises and principal stresses.',
+  },
+];
+const workflow = [
+  {
+    title: 'Prepare and inspect',
+    text: 'Read a supported ABAQUS .inp model. Check its elements, materials, loads and constraints before solving.',
+  },
+  {
+    title: 'Run the analysis',
+    text: 'Use the Windows workbench or standalone command-line engine. Keep project inputs and numbered analysis runs together.',
+  },
+  {
+    title: 'Explore the results',
+    text: 'Open the exported .vtu file in ParaView or another VTK-compatible visualizer. ParaView is installed separately.',
+  },
 ];
 ---
 
 <SiteFrame
-  title="Design system preview"
-  description="A development preview of the FinEleMethod identity, interface components, and accessible color themes."
+  title="Finite-element analysis, from model to results"
+  description="FinEleMethod is a custom C++20 finite-element solver and Windows workbench for Q4 and H8 linear-static analysis, with ABAQUS input and VTK output."
 >
   <main id="main" tabindex="-1" class="page-container">
     <section
-      class="grid items-center gap-12 border-b border-line py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr]"
-      aria-labelledby="preview-title"
+      aria-labelledby="home-title"
+      class="border-b border-line py-14 sm:py-20"
     >
-      <div>
-        <Badge>Design system · Preview 01</Badge>
+      <Badge>Custom C++20 solver · Windows x64</Badge>
+      <div class="mt-7 grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-end">
         <h1
-          id="preview-title"
-          class="mt-7 text-4xl font-semibold leading-[1.05] sm:text-6xl"
+          id="home-title"
+          class="max-w-3xl text-4xl font-semibold leading-[1.05] sm:text-6xl"
         >
-          Engineering,<br /><span class="text-accent">in every element.</span>
-        </h1>
-        <p class="mt-6 max-w-xl text-lg text-muted">
-          A visual language for FinEleMethod. Clear geometry, readable results,
-          and space to understand the mechanics.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <ButtonLink href="#components">Explore components</ButtonLink
-          ><ButtonLink href="#identity" variant="secondary"
-            >Inspect the identity</ButtonLink
+          From your model.<br /><span class="text-accent"
+            >To the mechanics.</span
           >
-        </div>
-        <p class="mt-5 text-sm text-muted">
-          Development preview. Product pages and installer links come later.
+        </h1>
+        <p class="max-w-xl text-lg text-muted">
+          <span translate="no">FinEleMethod</span> brings a custom finite-element
+          engine and a native Windows workbench together. Solve linear-static solid
+          mechanics problems, then explore the results in ParaView.
         </p>
       </div>
-      <figure class="min-w-0 border border-line bg-surface p-6 sm:p-10">
-        <div
-          class="flex items-center justify-between gap-4 font-mono text-xs text-muted"
+      <div class="mt-8 flex flex-wrap gap-3">
+        <ButtonLink href="#workflow">Explore the workflow</ButtonLink>
+        <ButtonLink
+          href={solverDocument('docs/BEGINNERS_GUIDE.md')}
+          variant="secondary">Read the beginner’s guide</ButtonLink
         >
-          <span>IDENTITY / 01</span><span>Q4 + H8</span>
-        </div>
-        <svg
-          class="mx-auto my-8 h-auto w-full max-w-72 text-accent"
-          viewBox="0 0 280 240"
-          fill="none"
-          aria-hidden="true"
+      </div>
+      <p class="mt-5 text-sm text-muted">
+        Windows 10 or later · x64 · GUI and command-line workflows
+      </p>
+      <figure class="mt-10 rounded-panel border border-line bg-surface">
+        <a
+          href="/images/plate-hole-displacement.png"
+          aria-label="Open full-size plate-with-a-hole displacement image"
+          class="block rounded-t-panel"
         >
-          <path
-            d="M20 200H260M20 160H260M20 120H260M20 80H260M20 40H260M40 20V220M80 20V220M120 20V220M160 20V220M200 20V220M240 20V220"
-            stroke="currentColor"
-            opacity=".12"></path>
-          <g transform="translate(30 0) scale(3.5)">
-            <path
-              d="M10 22H36V52H10ZM10 22 28 10H54L36 22M36 52 54 40V10M10 52 28 40H54M28 10V40"
-              stroke="currentColor"
-              stroke-width=".7"
-              stroke-linejoin="round"></path>
-            <path d="M10 37H36M23 22V52" stroke="currentColor" stroke-width=".5"
-            ></path>
-            <g fill="currentColor"
-              >{
-                [
-                  [10, 22],
-                  [36, 22],
-                  [36, 52],
-                  [10, 52],
-                  [28, 10],
-                  [54, 10],
-                  [54, 40],
-                  [28, 40],
-                ].map(([cx, cy]) => <circle cx={cx} cy={cy} r="1.1" />)
-              }</g
-            >
-          </g>
-        </svg>
-        <figcaption class="border-t border-line pt-5 text-sm text-muted">
-          A quadrilateral face meets a projected solid. Connected nodes express
-          the method behind the name.
+          <img
+            src="/images/plate-hole-displacement.png"
+            width="1380"
+            height="630"
+            fetchpriority="high"
+            class="h-auto w-full rounded-t-panel"
+            alt="ParaView displacement-magnitude contour of the supplied quarter plate-with-a-hole example, changing from blue on the left to amber on the right."
+          />
+        </a>
+        <figcaption
+          class="flex flex-wrap justify-between gap-3 px-5 py-4 text-sm text-muted"
+        >
+          <span>Plate with a hole · Displacement magnitude in ParaView</span>
+          <span>Supplied example image · Open image for full-size legend</span>
         </figcaption>
       </figure>
     </section>
     <section
-      id="identity"
+      aria-labelledby="capabilities-title"
       class="border-b border-line py-12 sm:py-16"
-      aria-labelledby="identity-title"
     >
-      <p class="eyebrow text-accent">01 / Identity</p>
-      <div class="mt-4 grid gap-8 lg:grid-cols-2">
-        <div>
-          <h2 id="identity-title" class="text-3xl font-semibold sm:text-4xl">
-            Recognizable at every scale.
-          </h2><p class="mt-5 max-w-lg text-muted">
-            One original mesh symbol, from a compact browser tab to the full
-            wordmark. Navy grounds the interface; cyan identifies the active
-            element.
-          </p>
-        </div>
-        <div
-          class="flex flex-wrap items-center gap-8 rounded-panel border border-line bg-surface p-6 sm:p-8"
-        >
-          <Logo large /><div class="flex items-center gap-3 text-muted">
-            <img
-              src="/favicon.svg"
-              width="32"
-              height="32"
-              alt="FinEleMethod mesh favicon"
-            /><span class="font-mono text-xs">32 px</span>
-          </div>
-        </div>
-      </div>
-      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+      <p class="eyebrow text-accent">The solver</p>
+      <h2
+        id="capabilities-title"
+        class="mt-4 text-3xl font-semibold sm:text-4xl"
+      >
+        A focused foundation for solid mechanics.
+      </h2>
+      <div class="mt-9 grid gap-8 lg:grid-cols-3">
         {
-          swatches.map(({ name, css, use }) => (
-            <div class="min-w-0">
-              <>
-                <div
-                  class="h-20 rounded-control border border-line"
-                  style={{ backgroundColor: css }}
-                />
-                <h3 class="mt-3 text-sm font-semibold">{name}</h3>
-                <p class="mt-1 text-xs text-muted">{use}</p>
-              </>
-            </div>
+          capabilities.map((item) => (
+            <article class="border-t border-line pt-6">
+              <p class="font-mono text-sm text-accent">{item.label}</p>
+              <h3 class="mt-4 text-xl font-semibold">{item.title}</h3>
+              <p class="mt-4 text-muted">{item.detail}</p>
+            </article>
           ))
         }
       </div>
+      <p class="mt-8 max-w-3xl text-muted">
+        Use multiple materials in one model, prescribed displacements,
+        concentrated nodal loads and element pressure loads. Supply a consistent
+        unit system; automatic unit conversion is not implemented.
+      </p>
+      <a
+        href={solverDocument('README.md')}
+        class="text-link mt-5 inline-flex min-h-11 items-center"
+        >Read supported capabilities and limitations</a
+      >
     </section>
     <section
-      id="components"
-      class="py-12 sm:py-16"
-      aria-labelledby="components-title"
+      id="workflow"
+      aria-labelledby="workflow-title"
+      class="border-b border-line py-12 sm:py-16"
     >
-      <p class="eyebrow text-accent">02 / Components</p>
-      <h2 id="components-title" class="mt-4 text-3xl font-semibold sm:text-4xl">
-        Built for clarity.
+      <p class="eyebrow text-accent">Your workflow</p>
+      <h2 id="workflow-title" class="mt-4 text-3xl font-semibold sm:text-4xl">
+        Inspect. Solve. Understand.
       </h2>
-      <p class="mt-5 max-w-2xl text-muted">
-        Consistent surfaces, purposeful controls, and technical detail that
-        stays readable in both themes. These samples demonstrate styling, not
-        analysis results.
-      </p>
-      <div class="mt-10 grid gap-5 lg:grid-cols-3">
-        <Panel title="Readable by design" eyebrow="Typography"
-          ><p>
-            Body text uses a familiar system font. Monospace labels distinguish
-            identifiers and mathematical notation.
-          </p><p
-            class="mt-6 rounded-control bg-elevated p-4 font-mono text-lg text-ink"
-          >
-            K · u = f
-          </p></Panel
+      <ol class="mt-9 grid gap-8 lg:grid-cols-3">
+        {
+          workflow.map((step, index) => (
+            <li>
+              <span class="font-mono text-3xl text-accent" aria-hidden="true">
+                0{index + 1}
+              </span>
+              <h3 class="mt-4 text-xl font-semibold">{step.title}</h3>
+              <p class="mt-4 text-muted">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+    <section
+      aria-labelledby="validation-title"
+      class="grid gap-8 py-12 sm:py-16 lg:grid-cols-2"
+    >
+      <div>
+        <p class="eyebrow text-accent">Evidence before confidence</p>
+        <h2
+          id="validation-title"
+          class="mt-4 text-3xl font-semibold sm:text-4xl"
         >
-        <Panel title="Clear next steps" eyebrow="Interaction"
-          ><p>
-            Links describe their destination. Focus stays visible for keyboard
-            users, with generous touch targets.
-          </p><div class="mt-6">
-            <ButtonLink href="#theme-notes">Read theme behavior</ButtonLink>
-          </div></Panel
-        >
-        <Panel title="Useful context" eyebrow="Information"
-          ><Badge>Documentation sample</Badge><p class="mt-5">
-            Technical pages will explain supported formulations, assumptions,
-            and benchmark evidence.
-          </p><a class="text-link mt-5 inline-block" href="#identity"
-            >Review the brand identity</a
-          ></Panel
+          Understand the checks behind the result.
+        </h2>
+        <p class="mt-5 text-muted">
+          The project documents comparisons for a cantilever beam, a plate with
+          a hole and a compressed 3D block. Review each benchmark’s assumptions,
+          mesh and acceptance criteria.
+        </p>
+        <a
+          href={solverDocument('docs/RELEASE_VALIDATION.md')}
+          class="text-link mt-5 inline-flex min-h-11 items-center"
+          >Read the validation record</a
         >
       </div>
       <aside
-        id="theme-notes"
-        class="mt-8 border-l-2 border-accent bg-elevated p-6"
-        aria-labelledby="theme-title"
+        class="rounded-panel border border-line bg-elevated p-6 sm:p-8"
+        aria-labelledby="limits-title"
       >
-        <h3 id="theme-title" class="text-lg font-semibold">
-          Your preferred appearance
-        </h3><p class="mt-2 max-w-3xl text-muted">
-          Choose Light, Dark, or System using the appearance control above. A
-          manual choice is remembered on this browser. System mode follows your
-          device automatically. No account is needed.
+        <h3 id="limits-title" class="text-xl font-semibold">
+          Before engineering use
+        </h3>
+        <p class="mt-4 text-muted">
+          Independently validate results before engineering use. The supported
+          scope is linear-static analysis with isotropic linear-elastic
+          materials and a supported subset of ABAQUS input.
+        </p>
+        <p class="mt-4 text-muted">
+          Benchmark checks do not establish correctness for every model. Review
+          loads, boundary conditions, units and mesh suitability for your case.
         </p>
       </aside>
     </section>

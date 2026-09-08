@@ -15,7 +15,7 @@
 
 ## Next stage
 
-- Verify Stage 3 on clean Windows/Linux runners, then build the real Home page from verified solver evidence.
+- Verify the Home-page PR on Windows/Linux, then build the Features page.
 
 ## Stage 2: design system
 
@@ -38,6 +38,16 @@
 - Seven development routes: Home, Features, Examples, Documentation, Download, About and Privacy. Unfinished content is explicitly labelled; no download URLs or product claims fabricated.
 - Automated tests cover route navigation, theme persistence, runtime/resource errors, menu behavior, responsiveness and Axe checks across all routes.
 - Verification evidence is recorded in docs/validation/site-shell.md; deployment remains deferred.
+- Both required checks passed in run 34182427344; PR #2 merged as `14aa16d` on 2026-09-08.
+
+## Stage 4: Home page
+
+- Solver overview, supported element families, workflow, evidence links and engineering-use limitations.
+- Product claims sourced from the solver checkout at `5941df69f3ef8469170ee086d08195bd25f7728a`; documentation links are pinned to that commit.
+- Original user-supplied ParaView screenshot copied unchanged, with provenance and limitations recorded in docs/validation/home-page.md.
+- Component preview preserved at `/design-system/`; six remaining product pages still explicitly labelled incomplete.
+- New browser tests cover evidence links, image loading, workflow navigation, 200% text enlargement and screenshots in both themes.
+- All pages remain noindex; release metadata, direct installer links and deployment are deferred.
 
 ## Before launch
 

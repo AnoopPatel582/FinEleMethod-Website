@@ -9,6 +9,7 @@ const types = {
   '.css': 'text/css',
   '.js': 'text/javascript',
   '.svg': 'image/svg+xml',
+  '.png': 'image/png',
 };
 createServer(async (req, res) => {
   const pathname = new URL(req.url, 'http://localhost').pathname;
