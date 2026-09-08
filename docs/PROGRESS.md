@@ -15,8 +15,7 @@
 
 ## Next stage
 
-- Build the responsive site header, navigation, footer and shared page layouts.
-- Product pages follow after shell acceptance.
+- Verify Stage 3 on clean Windows/Linux runners, then build the real Home page from verified solver evidence.
 
 ## Stage 2: design system
 
@@ -30,6 +29,15 @@
 - Stage 2 cross-engine CI verification passed: Windows and Ubuntu each passed 18 unit tests and all 21 browser tests, with zero Astro diagnostics (run 34146279666, verified 2026-09-08).
 - Local contrast tests and all Chromium/WebKit checks pass; local Firefox still fails before browser startup. This machine-specific test limitation remains documented.
 - See docs/validation/design-system.md for verification evidence and acceptance limits.
+
+## Stage 3: responsive shell
+
+- Shared SiteHeader, SiteFooter, SiteFrame and PageLayout.
+- Typed navigation with active-route matching, including nested-path boundary tests.
+- Mobile menu with keyboard/Escape support, outside dismissal and resize focus transfer; no-JavaScript navigation remains usable.
+- Seven development routes: Home, Features, Examples, Documentation, Download, About and Privacy. Unfinished content is explicitly labelled; no download URLs or product claims fabricated.
+- Automated tests cover route navigation, theme persistence, runtime/resource errors, menu behavior, responsiveness and Axe checks across all routes.
+- Verification evidence is recorded in docs/validation/site-shell.md; deployment remains deferred.
 
 ## Before launch
 

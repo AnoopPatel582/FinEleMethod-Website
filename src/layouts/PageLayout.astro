@@ -1,0 +1,17 @@
+---
+import SiteFrame from './SiteFrame.astro';
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<SiteFrame title={title} description={description}>
+  <main id="main" tabindex="-1" class="page-container flex-1 py-14 sm:py-20">
+    <p class="eyebrow text-accent">Website development</p>
+    <h1 class="mt-5 max-w-4xl text-4xl font-semibold sm:text-6xl">{title}</h1>
+    <p class="mt-6 max-w-2xl text-lg text-muted">{description}</p>
+    <div class="mt-10 max-w-3xl"><slot /></div>
+  </main>
+</SiteFrame>

@@ -1,0 +1,32 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { navigation } from '../config/navigation';
+export function getStaticPaths() {
+  return [
+    ...navigation.filter((item) => item.href !== '/'),
+    { label: 'Privacy', href: '/privacy/' },
+  ].map((item) => ({
+    params: { page: item.href.replaceAll('/', '') },
+    props: { title: item.label },
+  }));
+}
+const { title } = Astro.props;
+---
+
+<PageLayout
+  title={title}
+  description="This section is being prepared. The navigation and shared page layout are available for testing."
+>
+  <div class="rounded-panel border border-line bg-surface p-6 sm:p-8">
+    <h2 class="text-xl font-semibold">
+      Content comes in the next development stages
+    </h2>
+    <p class="mt-4 text-muted">
+      This is a layout preview, not the finished {title.toLowerCase()} page. Product
+      information, guides and release details will be added after verification.
+    </p>
+    <a href="/" class="text-link mt-6 inline-flex min-h-11 items-center"
+      >Return to the design preview</a
+    >
+  </div>
+</PageLayout>

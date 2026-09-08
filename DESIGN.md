@@ -44,4 +44,9 @@ Implemented design system. The development page at `/` demonstrates the primitiv
 - BaseLayout: document metadata, favicon, theme initialization and skip link.
 - Logo, ThemeControl, ButtonLink, Panel and Badge provide the initial reusable primitives.
 - Actual links retain native navigation; there are no simulated download actions.
-- Product shell, navigation and content pages are the following stage.
+- SiteHeader and SiteFooter share a typed navigation configuration; the current page uses `aria-current` and visible emphasis.
+- SiteFrame owns the common header/footer, and PageLayout provides the main landmark, title and introduction.
+- Below 80rem, an accessible disclosure button controls navigation; links remain visible without JavaScript.
+- Escape returns focus to the menu control. Outside focus/click closes the mobile menu; resizing transfers focus before hiding controls.
+- The header stays in normal flow so it cannot cover page content or keyboard focus.
+- Product content follows after responsive-shell verification.

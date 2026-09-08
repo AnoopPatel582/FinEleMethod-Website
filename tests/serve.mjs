@@ -14,7 +14,7 @@ createServer(async (req, res) => {
   const pathname = new URL(req.url, 'http://localhost').pathname;
   const path = resolve(
     root,
-    '.' + (pathname === '/' ? '/index.html' : pathname),
+    '.' + (pathname.endsWith('/') ? pathname + 'index.html' : pathname),
   );
   if (!path.startsWith(root + sep)) {
     res.writeHead(403).end();
