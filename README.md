@@ -1,7 +1,7 @@
 # FinEleMethod Website
 
 - Product website for the Windows FinEleMethod finite-element solver.
-- Foundation stage: Astro, TypeScript, Tailwind CSS v4 and a build-verification page.
+- Design-system stage: original mesh logo, semantic color tokens, reusable components, and System/Light/Dark themes.
 - No backend or database.
 - Copyright © Anoop Patel. All rights reserved. Third-party dependencies retain their licences.
 
@@ -15,11 +15,16 @@
 
 ## Verify
 
-- `npm run verify`: formatting, lint, Astro type checks and static production build.
+- Before browser tests, run `npx playwright install chromium firefox webkit` (Linux may require `--with-deps`).
+- `npm run verify`: formatting, lint, Astro checks, contrast unit tests, production build and browser/accessibility tests.
+- `npm test`: semantic color contrast checks against the actual CSS tokens.
+- `npm run test:browser`: Chromium, Firefox and WebKit tests against a completed production build.
 - `npm run preview`: serve the production build locally after verification.
 - `npm run format`: apply formatting.
 - CI runs the same verification on Linux and Windows.
-- Browser tests, Axe and Lighthouse CI will be introduced with actual interface behavior.
+- The `/` route is a noindex development preview. Product pages and deployment are pending.
+- Browser screenshots and failure traces are written to ignored test-results/ and playwright-report/ directories.
+- Lighthouse CI and full real-device acceptance remain later release checks.
 
 ## Project records
 

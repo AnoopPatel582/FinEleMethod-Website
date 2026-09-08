@@ -1,5 +1,6 @@
 {
   "extends": "astro/tsconfigs/strictest",
+  "compilerOptions": { "types": ["node", "astro/client"] },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", ".tools", ".agents"]
+  "exclude": ["dist", ".tools", ".agents", "playwright-report", "test-results"]
 }

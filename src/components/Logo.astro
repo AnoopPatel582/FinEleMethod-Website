@@ -1,0 +1,58 @@
+---
+interface Props {
+  symbolOnly?: boolean;
+  large?: boolean;
+}
+const { symbolOnly = false, large = false } = Astro.props;
+---
+
+<span
+  class:list={['inline-flex items-center gap-3', large && 'sm:gap-5']}
+  translate="no"
+>
+  <svg
+    width={large ? 80 : 36}
+    height={large ? 80 : 36}
+    viewBox="0 0 64 64"
+    fill="none"
+    class:list={['shrink-0 text-accent', large && 'size-12 sm:size-20']}
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path
+      d="M10 22H36V52H10ZM10 22 28 10H54L36 22M36 52 54 40V10M10 52 28 40H54M28 10V40"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linejoin="round"></path>
+    <path d="M10 37H36M23 22V52" stroke="currentColor" stroke-width="1.5"
+    ></path>
+    <g fill="currentColor"
+      >{
+        [
+          [10, 22],
+          [36, 22],
+          [36, 52],
+          [10, 52],
+          [28, 10],
+          [54, 10],
+          [54, 40],
+          [28, 40],
+        ].map(([cx, cy]) => <circle cx={cx} cy={cy} r="2.5" />)
+      }</g
+    >
+  </svg>
+  {
+    symbolOnly ? (
+      <span class="sr-only">FinEleMethod</span>
+    ) : (
+      <span
+        class:list={[
+          'font-semibold tracking-tight',
+          large ? 'text-xl sm:text-4xl' : 'text-xl',
+        ]}
+      >
+        Fin<span class="text-accent">Ele</span>Method
+      </span>
+    )
+  }
+</span>
