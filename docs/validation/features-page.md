@@ -23,3 +23,4 @@
 - Full local regression passed formatting, lint, Astro checks with zero diagnostics, all 25 unit tests and the production build.
 - The full browser matrix contains 48 scenarios. All 32 Chromium/WebKit scenarios pass locally; all 16 Firefox scenarios fail before startup with `browserType.launch: spawn UNKNOWN` because of the known machine-specific limitation.
 - Firefox stays enabled in required Windows and Ubuntu GitHub CI; the pull request must not merge until those clean-runner checks pass.
+- Windows and Ubuntu required checks passed in [run 34195241681](https://github.com/AnoopPatel582/FinEleMethod-Website/actions/runs/34195241681). PR #4 was merged as `813fd1f` on 2026-09-08.

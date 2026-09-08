@@ -15,7 +15,7 @@
 
 ## Next stage
 
-- Verify the Features-page PR on Windows/Linux, then build the Examples page from validated benchmark evidence.
+- Verify the Examples-page PR on Windows/Linux, then build the Documentation page.
 
 ## Stage 2: design system
 
@@ -58,6 +58,17 @@
 - Technical links remain pinned to verified solver commit `5941df6`.
 - Formatting, lint, Astro checks, 25 unit tests, the eight-route production build and all 32 Chromium/WebKit scenarios pass locally.
 - The 16 Firefox scenarios fail before startup because of the documented machine-specific launch limitation; all 48 scenarios remain enabled for required clean-runner CI before merge.
+- Both required checks passed in run 34195241681; PR #4 merged as `813fd1f` on 2026-09-08.
+
+## Stage 6: Examples page
+
+- Three benchmark-led sections for the Q4 cantilever, Q4 plate with a hole and H8 compression cases.
+- Exact analytical and solver comparison values, model assumptions, tolerances and interpretation limits sourced from the pinned solver commit.
+- Direct commit-pinned links to each benchmark method and runnable ABAQUS input.
+- Reuses the documented user-supplied plate-with-a-hole ParaView image; no benchmark imagery or result was generated.
+- On-page navigation, both themes, Axe checks and responsive coverage from 320 to 2560 CSS pixels.
+- Formatting, lint, Astro checks, 25 unit tests, the eight-route production build and all 36 Chromium/WebKit scenarios pass locally.
+- The 18 Firefox scenarios fail before startup because of the documented machine-specific launch limitation; all 54 scenarios remain enabled for required clean-runner CI before merge.
 
 ## Before launch
 
