@@ -1,7 +1,7 @@
 # FinEleMethod Website
 
 - Product website for the Windows FinEleMethod finite-element solver.
-- Design-system stage: original mesh logo, semantic color tokens, reusable components, and System/Light/Dark themes.
+- Responsive-shell stage: shared header/footer, mobile navigation, page layouts, original mesh logo, and System/Light/Dark themes.
 - No backend or database.
 - Copyright © Anoop Patel. All rights reserved. Third-party dependencies retain their licences.
 
@@ -22,7 +22,7 @@
 - `npm run preview`: serve the production build locally after verification.
 - `npm run format`: apply formatting.
 - CI runs the same verification on Linux and Windows.
-- The `/` route is a noindex development preview. Product pages and deployment are pending.
+- All seven routes remain noindex development previews. The home route demonstrates the design system; other routes clearly identify their unfinished content. Product content and deployment are pending.
 - Browser screenshots and failure traces are written to ignored test-results/ and playwright-report/ directories.
 - Lighthouse CI and full real-device acceptance remain later release checks.
 

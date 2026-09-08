@@ -1,0 +1,48 @@
+---
+import { navigation, isCurrentPath } from '../config/navigation';
+---
+
+<footer class="mt-auto border-t border-line bg-surface py-8">
+  <div class="page-container">
+    <div class="flex flex-wrap items-start justify-between gap-6">
+      <div>
+        <p class="font-semibold" translate="no">FinEleMethod</p><p
+          class="mt-2 text-sm text-muted"
+        >
+          Finite-element mechanics, built step by step.
+        </p>
+      </div>
+      <nav aria-label="Footer">
+        <ul class="flex max-w-xl flex-wrap gap-x-5 gap-y-2">
+          {
+            [...navigation, { label: 'Privacy', href: '/privacy/' }].map(
+              ({ label, href }) => (
+                <li>
+                  <a
+                    href={href}
+                    tabindex="0"
+                    aria-current={
+                      isCurrentPath(Astro.url.pathname, href)
+                        ? 'page'
+                        : undefined
+                    }
+                    class="text-link inline-flex min-h-11 items-center text-sm"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ),
+            )
+          }
+        </ul>
+      </nav>
+    </div>
+    <div
+      class="mt-6 flex flex-wrap justify-between gap-3 border-t border-line pt-6 text-sm text-muted"
+    >
+      <span>Development preview · Not yet published</span><span
+        >© Anoop Patel. All rights reserved.</span
+      >
+    </div>
+  </div>
+</footer>

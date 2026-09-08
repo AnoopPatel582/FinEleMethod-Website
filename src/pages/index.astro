@@ -1,7 +1,6 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteFrame from '../layouts/SiteFrame.astro';
 import Logo from '../components/Logo.astro';
-import ThemeControl from '../components/ThemeControl.astro';
 import ButtonLink from '../components/ButtonLink.astro';
 import Panel from '../components/Panel.astro';
 import Badge from '../components/Badge.astro';
@@ -15,15 +14,10 @@ const swatches = [
 ];
 ---
 
-<BaseLayout
+<SiteFrame
   title="Design system preview"
   description="A development preview of the FinEleMethod identity, interface components, and accessible color themes."
 >
-  <header
-    class="page-container flex flex-wrap items-center justify-between gap-5 border-b border-line py-6"
-  >
-    <Logo /><ThemeControl />
-  </header>
   <main id="main" tabindex="-1" class="page-container">
     <section
       class="grid items-center gap-12 border-b border-line py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr]"
@@ -200,13 +194,4 @@ const swatches = [
       </aside>
     </section>
   </main>
-  <footer class="border-t border-line py-7">
-    <div
-      class="page-container flex flex-wrap justify-between gap-3 text-sm text-muted"
-    >
-      <span translate="no">FinEleMethod · Design preview</span><span
-        >© Anoop Patel. All rights reserved.</span
-      >
-    </div>
-  </footer>
-</BaseLayout>
+</SiteFrame>

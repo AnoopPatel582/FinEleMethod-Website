@@ -1,0 +1,115 @@
+---
+import Logo from './Logo.astro';
+import ThemeControl from './ThemeControl.astro';
+import { navigation, isCurrentPath } from '../config/navigation';
+---
+
+<header class="border-b border-line bg-canvas" data-site-header>
+  <div class="page-container flex flex-wrap items-center gap-x-6 gap-y-4 py-5">
+    <a
+      href="/"
+      aria-label="FinEleMethod home"
+      class="inline-flex min-h-11 items-center"
+      tabindex="0"><Logo /></a
+    >
+    <button
+      type="button"
+      hidden
+      data-menu-toggle
+      aria-controls="site-navigation"
+      aria-expanded="false"
+      class="action action-secondary ml-auto">Menu</button
+    >
+    <nav
+      id="site-navigation"
+      aria-label="Primary"
+      class="site-navigation w-full xl:w-auto xl:flex-1"
+    >
+      <ul
+        class="flex flex-col gap-1 xl:flex-row xl:flex-wrap xl:justify-center"
+      >
+        {
+          navigation.map(({ label, href }) => (
+            <li>
+              <a
+                href={href}
+                tabindex="0"
+                aria-current={
+                  isCurrentPath(Astro.url.pathname, href) ? 'page' : undefined
+                }
+                class="nav-link flex min-h-11 items-center rounded-control px-3 py-2 text-sm text-muted hover:bg-elevated hover:text-ink"
+              >
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="w-full xl:w-auto"><ThemeControl /></div>
+  </div>
+</header>
+<style>
+  .nav-link[aria-current='page'] {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.4em;
+    font-weight: 600;
+  }
+  @media (width < 80rem) {
+    [data-site-header][data-enhanced][data-menu-open='false'] .site-navigation {
+      display: none;
+    }
+  }
+</style>
+<script>
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  const toggle = header?.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const nav = header?.querySelector<HTMLElement>('#site-navigation');
+  if (header && toggle && nav) {
+    const wide = window.matchMedia('(min-width: 80rem)');
+    const setOpen = (open: boolean) => {
+      header.dataset.menuOpen = String(open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.textContent = open ? 'Close menu' : 'Menu';
+    };
+    const sync = () => {
+      // Move focus before hiding the focused control or collapsed links.
+      const focused = document.activeElement;
+      if (!wide.matches) toggle.hidden = false;
+      if (wide.matches && focused === toggle)
+        nav.querySelector<HTMLAnchorElement>('a')?.focus();
+      if (!wide.matches && nav.contains(focused)) toggle.focus();
+      toggle.hidden = wide.matches;
+      // Keep desktop links logically open until focus transfers on collapse.
+      setOpen(wide.matches);
+    };
+    header.dataset.enhanced = '';
+    toggle.hidden = wide.matches;
+    sync();
+    toggle.addEventListener('click', () =>
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true'),
+    );
+    header.addEventListener('keydown', (event) => {
+      if (
+        event.key === 'Escape' &&
+        !wide.matches &&
+        toggle.getAttribute('aria-expanded') === 'true'
+      ) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    const closeOutside = (event: Event) => {
+      if (
+        !wide.matches &&
+        event.target instanceof Node &&
+        !header.contains(event.target)
+      )
+        setOpen(false);
+    };
+    document.addEventListener('focusin', closeOutside);
+    document.addEventListener('click', closeOutside);
+    wide.addEventListener('change', sync);
+  }
+</script>
