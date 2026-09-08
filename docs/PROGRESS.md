@@ -15,8 +15,7 @@
 
 ## Next stage
 
-- Resolve the Firefox test-browser launch blocker and verify the full Windows/Linux CI suite before closing Stage 2.
-- Then build the responsive site header, navigation, footer and shared page layouts.
+- Build the responsive site header, navigation, footer and shared page layouts.
 - Product pages follow after shell acceptance.
 
 ## Stage 2: design system
@@ -28,8 +27,9 @@
 - Development component preview at `/`, still noindex and not publicly deployed.
 - Vitest checks color contrast against actual CSS; Playwright checks interactions, focus, responsive overflow, reduced motion and Axe accessibility in Chromium/Firefox/WebKit.
 - GitHub CI now runs the same browser tests on both Linux and Windows.
-- Local contrast tests and all Chromium/WebKit checks pass; Firefox fails before browser startup. Stage 2 verification remains open.
-- See docs/validation/design-system.md for verification evidence and the exact blocker.
+- Stage 2 cross-engine CI verification passed: Windows and Ubuntu each passed 18 unit tests and all 21 browser tests, with zero Astro diagnostics (run 34146279666, verified 2026-09-08).
+- Local contrast tests and all Chromium/WebKit checks pass; local Firefox still fails before browser startup. This machine-specific test limitation remains documented.
+- See docs/validation/design-system.md for verification evidence and acceptance limits.
 
 ## Before launch
 

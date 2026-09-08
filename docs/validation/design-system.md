@@ -25,13 +25,19 @@
 - Generated Playwright reports are excluded from source type-checking, lint and formatting.
 - Dark control-border contrast was increased to meet the tested 3:1 threshold.
 
-## Open verification blocker
+## Clean-runner verification
+
+- Verified on 2026-09-08: [GitHub Actions run 34146279666](https://github.com/AnoopPatel582/FinEleMethod-Website/actions/runs/34146279666) passed on both Windows and Ubuntu for implementation commit `4394fc5`.
+- Each runner passed formatting, ESLint, Astro checks (zero errors, warnings and hints), all 18 unit tests, the static build and all 21 Chromium/Firefox/WebKit tests.
+- The complete suite passed without skipping Firefox tests. This clears the stage's cross-engine CI gate; it does not resolve the local browser installation problem below.
+
+## Local test-environment limitation
 
 - Full local verification is not green: the seven Firefox tests cannot launch their browser.
 - Playwright Firefox build 1543 reports `spawn UNKNOWN`; Windows SideBySide events report that the dependent `mozglue` assembly cannot be found, although `mozglue.dll` is present.
 - Reinstalling the official Playwright Firefox package with `playwright install --force firefox` did not resolve the launch error.
 - No browser binaries, Windows settings, security controls or test assertions were bypassed to hide this failure.
-- The full three-engine suite remains enabled for Windows and Linux CI. Clean-runner results must be checked before merging this stage.
+- The full three-engine suite remains enabled for Windows and Linux CI, where it passes. Keep this local limitation visible rather than claiming full local verification is green.
 
 ## Limits
 
