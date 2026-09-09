@@ -8,7 +8,8 @@ export function getStaticPaths() {
         item.href !== '/' &&
         item.href !== '/features/' &&
         item.href !== '/examples/' &&
-        item.href !== '/docs/',
+        item.href !== '/docs/' &&
+        item.href !== '/download/',
     ),
     { label: 'Privacy', href: '/privacy/' },
   ].map((item) => ({

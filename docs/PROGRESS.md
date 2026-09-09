@@ -15,7 +15,7 @@
 
 ## Next stage
 
-- Verify the Documentation-page PR on Windows/Linux, then build the Download page from verified release metadata.
+- Verify the Download-page PR on Windows/Linux, then build the About page.
 
 ## Stage 2: design system
 
@@ -80,6 +80,18 @@
 - On-page navigation, both themes, Axe checks and responsive coverage from 320 to 2560 CSS pixels.
 - Formatting, lint, Astro checks, 25 unit tests, the eight-route production build and all 40 Chromium/WebKit scenarios pass locally.
 - The 20 Firefox scenarios fail before startup because of the documented machine-specific launch limitation; all 60 scenarios remain enabled for required clean-runner CI before merge.
+- Both required checks passed in run 34250433034; PR #6 merged as `b64b713` on 2026-09-08.
+
+## Stage 8: Download page
+
+- Typed release configuration for version, publication date, exact source commit, Windows requirements and all direct asset URLs.
+- Installer-first download path with the portable ZIP as an alternative.
+- Exact published SHA-256 values, byte sizes, checksum files, release manifest and source provenance.
+- Windows 10 x64, administrator and Visual C++ Runtime requirements stated per package.
+- Unsigned-installer warning and the outstanding runtime-absent qualification are visible before engineering-use guidance.
+- All five release asset endpoints returned HTTP 200 with expected sizes on 2026-09-09.
+- Formatting, lint, Astro checks, 27 unit tests, the eight-route production build and all 44 Chromium/WebKit scenarios pass locally.
+- The 22 Firefox scenarios fail before startup because of the documented machine-specific launch limitation; all 66 scenarios remain enabled for required clean-runner CI before merge.
 
 ## Before launch
 

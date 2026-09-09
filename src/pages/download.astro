@@ -1,0 +1,301 @@
+---
+import Badge from '../components/Badge.astro';
+import SiteFrame from '../layouts/SiteFrame.astro';
+import {
+  formatBytes,
+  formatMegabytes,
+  formatReleaseDate,
+  release,
+} from '../config/release';
+
+const installerSize = formatMegabytes(release.installer.bytes);
+const portableSize = formatMegabytes(release.portable.bytes);
+const publishedDate = formatReleaseDate(release.publishedAt);
+---
+
+<SiteFrame
+  title="Download"
+  description="Download FinEleMethod 0.1.0 for Windows x64, verify its SHA-256 checksum, and review its installation requirements."
+>
+  <main id="main" tabindex="-1" class="page-container flex-1">
+    <header class="border-b border-line py-14 sm:py-20">
+      <Badge>Latest release · {release.tag}</Badge>
+      <div class="mt-6 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div>
+          <h1 class="max-w-4xl text-4xl font-semibold sm:text-6xl">
+            Download FinEleMethod for Windows.
+          </h1>
+          <p class="mt-6 max-w-3xl text-lg text-muted">
+            Install the native x64 workbench and command-line solver. No Visual
+            Studio, CMake, Git, vcpkg or Inno Setup is required to run the
+            packaged application.
+          </p>
+        </div>
+        <dl
+          class="grid min-w-52 grid-cols-2 gap-x-6 gap-y-2 text-sm lg:grid-cols-1"
+        >
+          <div>
+            <dt class="text-muted">Version</dt>
+            <dd class="font-mono">{release.version}</dd>
+          </div>
+          <div>
+            <dt class="text-muted">Published</dt>
+            <dd>{publishedDate}</dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+
+    <section
+      aria-labelledby="installer-title"
+      class="grid gap-8 border-b border-line py-12 sm:py-16 lg:grid-cols-[1.25fr_0.75fr]"
+    >
+      <div>
+        <p class="eyebrow text-accent">Recommended</p>
+        <h2 id="installer-title" class="mt-4 text-3xl font-semibold">
+          Windows Installer
+        </h2>
+        <p class="mt-4 max-w-2xl text-muted">
+          The offline installer places FinEleMethod under Program Files, creates
+          a Start Menu shortcut, registers an uninstaller and includes the
+          Microsoft Visual C++ x64 Runtime prerequisite.
+        </p>
+        <a
+          class="action action-primary mt-7"
+          href={release.installer.url}
+          aria-label={`Download FinEleMethod ${release.version} Windows installer, ${installerSize}`}
+        >
+          Download Installer · {installerSize}
+          <span aria-hidden="true">↓</span>
+        </a>
+        <p class="mt-4 text-sm text-muted break-words" translate="no">
+          {release.installer.filename}
+        </p>
+      </div>
+      <div class="rounded-panel border border-line bg-surface p-6">
+        <h3 class="text-lg font-semibold">System Requirements</h3>
+        <dl class="mt-5 grid gap-4 text-sm">
+          <div
+            class="grid grid-cols-[7rem_1fr] gap-3 border-b border-line pb-4"
+          >
+            <dt class="text-muted">Operating system</dt>
+            <dd>{release.windows.minimumVersion} or later</dd>
+          </div>
+          <div
+            class="grid grid-cols-[7rem_1fr] gap-3 border-b border-line pb-4"
+          >
+            <dt class="text-muted">Architecture</dt>
+            <dd>{release.windows.architecture}</dd>
+          </div>
+          <div class="grid grid-cols-[7rem_1fr] gap-3">
+            <dt class="text-muted">Permission</dt>
+            <dd>Administrator approval during setup</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="security-title"
+      class="my-12 rounded-panel border border-line bg-elevated p-6 sm:my-16 sm:p-8"
+    >
+      <div class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+        <div>
+          <p class="eyebrow text-accent">Before You Install</p>
+          <h2 id="security-title" class="mt-4 text-2xl font-semibold">
+            Verify the download.
+          </h2>
+        </div>
+        <div>
+          <p class="text-muted">
+            Version 0.1.0 is not code-signed, so Windows may show an
+            unknown-publisher warning. Do not disable Windows security. Verify
+            that the SHA-256 value matches before running setup.
+          </p>
+          <p class="mt-5 font-mono text-sm break-all" translate="no">
+            {release.installer.sha256}
+          </p>
+          <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+            <a
+              class="text-link inline-flex min-h-11 items-center"
+              href={release.installer.checksumUrl}
+            >
+              Download Installer Checksum
+            </a>
+            <a
+              class="text-link inline-flex min-h-11 items-center"
+              href="#verify"
+            >
+              View Verification Steps
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="portable-title"
+      class="grid gap-8 border-y border-line py-12 sm:py-16 lg:grid-cols-[1fr_1fr]"
+    >
+      <div>
+        <p class="eyebrow text-accent">Alternative Package</p>
+        <h2 id="portable-title" class="mt-4 text-3xl font-semibold">
+          Portable ZIP
+        </h2>
+        <p class="mt-4 max-w-2xl text-muted">
+          Use the ZIP when you prefer an extracted application folder. Extract
+          every file and keep both executables and all DLLs together.
+        </p>
+        <a
+          class="action action-secondary mt-7"
+          href={release.portable.url}
+          aria-label={`Download FinEleMethod ${release.version} portable ZIP, ${portableSize}`}
+        >
+          Download Portable ZIP · {portableSize}
+          <span aria-hidden="true">↓</span>
+        </a>
+        <p class="mt-4 text-sm text-muted break-words" translate="no">
+          {release.portable.filename}
+        </p>
+      </div>
+      <div class="rounded-panel border border-line bg-surface p-6">
+        <h3 class="text-lg font-semibold">Portable Package Note</h3>
+        <p class="mt-4 text-muted">
+          The ZIP does not install prerequisites. Install the current x64
+          Microsoft Visual C++ v14 Redistributable from Microsoft before
+          launching FinEleMethod.
+        </p>
+        <a
+          class="text-link mt-5 inline-flex min-h-11 items-center"
+          href="https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist"
+        >
+          Open Microsoft Runtime Download
+        </a>
+      </div>
+    </section>
+
+    <section id="verify" aria-labelledby="verify-title" class="py-12 sm:py-16">
+      <div class="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+        <div>
+          <p class="eyebrow text-accent">Integrity Check</p>
+          <h2 id="verify-title" class="mt-4 text-3xl font-semibold">
+            Verify with PowerShell
+          </h2>
+          <p class="mt-4 text-muted">
+            A checksum detects an incomplete or changed file. It does not prove
+            the publisher’s identity.
+          </p>
+        </div>
+        <div>
+          <ol class="space-y-6">
+            <li class="grid gap-3 sm:grid-cols-[2rem_1fr]">
+              <span class="font-mono text-accent" aria-hidden="true">01</span>
+              <div>
+                <h3 class="font-semibold">Keep Matching Files Together</h3>
+                <p class="mt-2 text-muted">
+                  Download the package and its matching <code>.sha256</code> file
+                  from this release.
+                </p>
+              </div>
+            </li>
+            <li class="grid gap-3 sm:grid-cols-[2rem_1fr]">
+              <span class="font-mono text-accent" aria-hidden="true">02</span>
+              <div class="min-w-0">
+                <h3 class="font-semibold">Calculate the File Hash</h3>
+                <pre
+                  tabindex="0"
+                  aria-label="PowerShell command to calculate the installer SHA-256 hash"
+                  class="mt-3 overflow-x-auto rounded-control border border-line bg-surface p-4 text-sm"><code>Get-FileHash -Algorithm SHA256 -LiteralPath '.\{release.installer.filename}'</code></pre>
+              </div>
+            </li>
+            <li class="grid gap-3 sm:grid-cols-[2rem_1fr]">
+              <span class="font-mono text-accent" aria-hidden="true">03</span>
+              <div>
+                <h3 class="font-semibold">Compare Before Running</h3>
+                <p class="mt-2 text-muted">
+                  Continue only when the calculated value exactly matches the
+                  checksum file. Stop if it differs.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="provenance-title"
+      class="mb-14 rounded-panel border border-line bg-surface p-6 sm:mb-20 sm:p-8"
+    >
+      <div class="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+        <div>
+          <p class="eyebrow text-accent">Release Provenance</p>
+          <h2 id="provenance-title" class="mt-4 text-2xl font-semibold">
+            Trace the Published Build
+          </h2>
+        </div>
+        <div>
+          <dl class="grid gap-5 text-sm sm:grid-cols-2">
+            <div>
+              <dt class="text-muted">Installer Size</dt>
+              <dd class="mt-1 font-mono tabular-nums">
+                {formatBytes(release.installer.bytes)}
+              </dd>
+            </div>
+            <div>
+              <dt class="text-muted">Portable ZIP Size</dt>
+              <dd class="mt-1 font-mono tabular-nums">
+                {formatBytes(release.portable.bytes)}
+              </dd>
+            </div>
+            <div>
+              <dt class="text-muted">Source Commit</dt>
+              <dd class="mt-1 font-mono break-all" translate="no">
+                {release.sourceCommit}
+              </dd>
+            </div>
+            <div>
+              <dt class="text-muted">Manifest</dt>
+              <dd class="mt-1 font-mono" translate="no">
+                {release.manifest.filename}
+              </dd>
+            </div>
+          </dl>
+          <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+            <a
+              class="text-link inline-flex min-h-11 items-center"
+              href={release.manifest.url}
+            >
+              Download Release Manifest
+            </a>
+            <a
+              class="text-link inline-flex min-h-11 items-center"
+              href={release.portable.checksumUrl}
+            >
+              Download ZIP Checksum
+            </a>
+            <a
+              class="text-link inline-flex min-h-11 items-center"
+              href={release.sourceCommitUrl}
+            >
+              Review Source Commit
+            </a>
+            <a
+              class="text-link inline-flex min-h-11 items-center"
+              href={release.releaseUrl}
+            >
+              View Full Release on GitHub
+            </a>
+          </div>
+          <p class="mt-6 text-muted">
+            The published installer passed interactive checks on systems where
+            the Visual C++ runtime was already present. Its automatic
+            runtime-installation branch still requires independent testing on a
+            machine without that prerequisite. Independently validate analysis
+            results before engineering use.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</SiteFrame>
