@@ -22,7 +22,9 @@ test('download presents verified release packages and requirements', async ({
 
   await expect(page.getByText(release.installer.sha256)).toBeVisible();
   await expect(page.getByText(release.sourceCommit)).toBeVisible();
-  await expect(page.getByText('Windows 10 or later')).toBeVisible();
+  await expect(
+    page.getByText('Windows 10 or later', { exact: true }),
+  ).toBeVisible();
   await expect(page.getByText('unknown-publisher warning')).toBeVisible();
   await expect(
     page.getByText(

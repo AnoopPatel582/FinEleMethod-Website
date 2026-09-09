@@ -4,8 +4,10 @@ import themeScript from '../scripts/theme.js?raw';
 interface Props {
   title: string;
   description: string;
+  robots?: string | undefined;
 }
-const { title, description } = Astro.props;
+const { title, description, robots = 'index, follow' } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
 ---
 
 <!doctype html>
@@ -15,11 +17,12 @@ const { title, description } = Astro.props;
       name="viewport"
       content="width=device-width, initial-scale=1"
     />
-    <meta name="robots" content="noindex, nofollow" /><meta
+    <meta name="robots" content={robots} /><meta
       name="description"
       content={description}
     />
     <meta name="theme-color" content="#0b1220" />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} — FinEleMethod</title>
     <script is:inline>

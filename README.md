@@ -23,7 +23,8 @@
 - `npm run preview`: serve the production build locally after verification.
 - `npm run format`: apply formatting.
 - CI runs the same verification on Linux and Windows.
-- All seven routes remain noindex during development. Home presents the solver, Features documents its scope, Examples presents the analytical comparisons, Documentation provides the first-analysis guide and technical reference map, Download links directly to verified release assets, and About explains the project intent and engineering approach. The original component preview is at `/design-system/`. Deployment remains pending; a Privacy page is deferred until it is needed.
+- The website is deployed at [fin-ele-method-website.vercel.app](https://fin-ele-method-website.vercel.app/). Home presents the solver, Features documents its scope, Examples presents the analytical comparisons, Documentation provides the first-analysis guide and technical reference map, Download links directly to verified release assets, and About explains the project intent and engineering approach.
+- The six public routes are indexable, use production canonical URLs, and are listed in `sitemap.xml`. The original component preview remains at `/design-system/` and stays `noindex`. A Privacy page is deferred until it is needed.
 - Browser screenshots and failure traces are written to ignored test-results/ and playwright-report/ directories.
 - Lighthouse quality gates are automated; full real-device acceptance remains a later release check.
 
