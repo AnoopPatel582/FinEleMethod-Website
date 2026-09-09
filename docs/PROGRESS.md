@@ -15,7 +15,7 @@
 
 ## Next stage
 
-- Verify the Download-page PR on Windows/Linux, then build the About page.
+- Verify the About-page PR on Windows/Linux, then build the Privacy page.
 
 ## Stage 2: design system
 
@@ -92,6 +92,18 @@
 - All five release asset endpoints returned HTTP 200 with expected sizes on 2026-09-09.
 - Formatting, lint, Astro checks, 27 unit tests, the eight-route production build and all 44 Chromium/WebKit scenarios pass locally.
 - The 22 Firefox scenarios fail before startup because of the documented machine-specific launch limitation; all 66 scenarios remain enabled for required clean-runner CI before merge.
+- Both required checks passed in run 34304415723; PR #7 merged as `0a878cd` on 2026-09-09.
+
+## Stage 9: About page
+
+- Confirmed project purpose, creator attribution, engineering principles and development approach.
+- Technical-identity map covers the chosen core, elements, numerical system, interfaces, storage and result formats.
+- Development journey follows the verified progression from command-line core through validation, Windows workbench and packaged release.
+- Architecture and project-decision links remain pinned to solver commit `5941df6`.
+- Public-source and copyright wording does not describe the project as open-source.
+- Explicit current-scope and independent-validation limits remain visible.
+- Formatting, lint, Astro checks, 27 unit tests, the eight-route production build and all 48 Chromium/WebKit scenarios pass locally.
+- The 24 Firefox scenarios fail before startup because of the documented machine-specific launch limitation; all 72 scenarios remain enabled for required clean-runner CI before merge.
 
 ## Before launch
 

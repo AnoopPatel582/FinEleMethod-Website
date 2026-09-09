@@ -135,5 +135,12 @@ test('navigation stays usable without JavaScript', async ({ browser }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Download FinEleMethod for Windows.',
   );
+  await page
+    .getByRole('navigation', { name: 'Primary' })
+    .getByRole('link', { name: 'About', exact: true })
+    .click();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Learn the method by building the whole path.',
+  );
   await context.close();
 });
