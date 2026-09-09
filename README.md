@@ -22,7 +22,7 @@
 - `npm run preview`: serve the production build locally after verification.
 - `npm run format`: apply formatting.
 - CI runs the same verification on Linux and Windows.
-- All eight routes remain noindex during development. Home presents the solver, Features documents its scope, Examples presents the analytical comparisons, Documentation provides the first-analysis guide and technical reference map, Download links directly to verified release assets, and About explains the project intent and engineering approach. The original component preview is at `/design-system/`. Privacy and deployment remain pending.
+- All seven routes remain noindex during development. Home presents the solver, Features documents its scope, Examples presents the analytical comparisons, Documentation provides the first-analysis guide and technical reference map, Download links directly to verified release assets, and About explains the project intent and engineering approach. The original component preview is at `/design-system/`. Deployment remains pending; a Privacy page is deferred until it is needed.
 - Browser screenshots and failure traces are written to ignored test-results/ and playwright-report/ directories.
 - Lighthouse CI and full real-device acceptance remain later release checks.
 

@@ -15,7 +15,7 @@
 
 ## Next stage
 
-- Verify the About-page PR on Windows/Linux, then build the Privacy page.
+- Complete the remaining quality validation before deployment. The Privacy page is deferred until requested.
 
 ## Stage 2: design system
 
@@ -35,7 +35,7 @@
 - Shared SiteHeader, SiteFooter, SiteFrame and PageLayout.
 - Typed navigation with active-route matching, including nested-path boundary tests.
 - Mobile menu with keyboard/Escape support, outside dismissal and resize focus transfer; no-JavaScript navigation remains usable.
-- Seven development routes: Home, Features, Examples, Documentation, Download, About and Privacy. Unfinished content is explicitly labelled; no download URLs or product claims fabricated.
+- Seven development routes were originally created: Home, Features, Examples, Documentation, Download, About and a Privacy placeholder. The Privacy placeholder was later removed when that page was deferred.
 - Automated tests cover route navigation, theme persistence, runtime/resource errors, menu behavior, responsiveness and Axe checks across all routes.
 - Verification evidence is recorded in docs/validation/site-shell.md; deployment remains deferred.
 - Both required checks passed in run 34182427344; PR #2 merged as `14aa16d` on 2026-09-08.
@@ -111,5 +111,5 @@
 - Verify release metadata, asset links, and download checksums.
 - Extend behavior tests and Axe as real pages are added; add Lighthouse CI.
 - Complete supported-browser and 320px-to-ultrawide acceptance.
-- Verify provider privacy wording, asset licences, canonical domain and robots policy.
+- Verify asset licences, canonical domain and robots policy. Add and verify provider privacy wording if a Privacy page is introduced.
 - Replace the foundation page and remove noindex only for production content.

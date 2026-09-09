@@ -59,14 +59,6 @@ test('every navigation route works and keeps the saved theme', async ({
       'noindex, nofollow',
     );
   }
-  await page
-    .getByRole('navigation', { name: 'Footer' })
-    .getByRole('link', { name: 'Privacy' })
-    .click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Privacy');
-  await expect(
-    page.getByRole('navigation', { name: 'Primary' }).locator('[aria-current]'),
-  ).toHaveCount(0);
   expect(errors).toEqual([]);
 });
 
@@ -76,7 +68,7 @@ for (const theme of ['light', 'dark'] as const) {
   }, testInfo) => {
     test.setTimeout(90000);
     await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' });
-    for (const href of [...navigation.map((item) => item.href), '/privacy/']) {
+    for (const href of navigation.map((item) => item.href)) {
       await page.goto(href);
       for (const width of [320, 390, 768, 1024, 1280, 1440, 2560]) {
         await page.setViewportSize({ width, height: 900 });
