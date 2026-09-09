@@ -21,7 +21,7 @@ Status: confirmed by Anoop Patel during planning. Implementation status is recor
 17. Responsive support: 320px and above, portrait and landscape, mobile/tablet/desktop/ultrawide; current and previous major Chrome, Edge, Firefox, Safari; Windows/macOS/Android/iOS; touch/mouse/keyboard. No overflow or inaccessible content. Validate browser feature support during implementation.
 18. SEO: unique titles/descriptions, canonical URLs, sitemap, robots.txt, sharing images, SoftwareApplication structured data, semantic headings and accurate content.
 19. Licensing: public source with copyright reserved; no open-source licence selected. Preserve third-party licences and required attribution.
-20. Privacy: no analytics, advertising trackers, personal-data forms, or consent-requiring cookies initially. Explain hosting/download providers' request processing accurately; do not claim that providers collect no data. Theme preference is local storage.
+20. Privacy: a dedicated Privacy page is deferred until requested. The current site still uses no analytics, advertising trackers, personal-data forms, or consent-requiring cookies; theme preference is stored locally.
 21. Domain: Vercel address initially, exact availability unverified; custom domain later, stable paths and redirects.
 22. Language: English initially, clear terminology; no incomplete language switcher.
 23. Precedence: confirmed decisions, customized DESIGN.md, Vercel web guidelines, Lombiq Tailwind guidance, then GetDesign Vercel inspiration.
@@ -30,7 +30,7 @@ Status: confirmed by Anoop Patel during planning. Implementation status is recor
 26. Package manager: npm, committed package-lock.json, npm ci in CI, pinned supported Node version.
 27. Local path: sibling of solver at FEM Software/FinEleMethod-Website.
 28. Remote: https://github.com/AnoopPatel582/FinEleMethod-Website, public, main production branch.
-29. Initial scope: responsive shell/themes, six primary pages, privacy page, genuine visuals, metadata, tests, deployment, original design/logo. Search, translations, blog, accounts, cloud analysis and feedback forms deferred.
+29. Initial scope: responsive shell/themes, six primary pages, genuine visuals, metadata, tests, deployment, original design/logo. Privacy, search, translations, blog, accounts, cloud analysis and feedback forms are deferred.
 30. Sequence: foundation; design/components; responsive shell; individual pages; evidence/docs/downloads; quality validation; preview then production. Test and push each stage.
 
 ## Implementation clarifications
@@ -38,5 +38,5 @@ Status: confirmed by Anoop Patel during planning. Implementation status is recor
 - Node 24.20.0 is the initial toolchain pin; current Astro requires Node >=22.12.0.
 - The system preference governs first-visit theme; dark is the fallback and brand direction.
 - Public source must not be described as open-source until a suitable licence is selected.
-- Privacy wording must acknowledge infrastructure providers and direct GitHub downloads.
+- If a Privacy page is added later, its wording must acknowledge infrastructure providers and direct GitHub downloads.
 - The chosen design template is inspiration, not affiliation with Vercel.

@@ -15,24 +15,20 @@ import { navigation, isCurrentPath } from '../config/navigation';
       <nav aria-label="Footer">
         <ul class="flex max-w-xl flex-wrap gap-x-5 gap-y-2">
           {
-            [...navigation, { label: 'Privacy', href: '/privacy/' }].map(
-              ({ label, href }) => (
-                <li>
-                  <a
-                    href={href}
-                    tabindex="0"
-                    aria-current={
-                      isCurrentPath(Astro.url.pathname, href)
-                        ? 'page'
-                        : undefined
-                    }
-                    class="text-link inline-flex min-h-11 items-center text-sm"
-                  >
-                    {label}
-                  </a>
-                </li>
-              ),
-            )
+            navigation.map(({ label, href }) => (
+              <li>
+                <a
+                  href={href}
+                  tabindex="0"
+                  aria-current={
+                    isCurrentPath(Astro.url.pathname, href) ? 'page' : undefined
+                  }
+                  class="text-link inline-flex min-h-11 items-center text-sm"
+                >
+                  {label}
+                </a>
+              </li>
+            ))
           }
         </ul>
       </nav>
