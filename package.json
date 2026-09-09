@@ -17,7 +17,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:browser": "playwright test",
-    "verify": "npm run format:check && npm run lint && npm run check && npm test && npm run build && npm run test:browser"
+    "test:lighthouse": "node tests/lighthouse.mjs",
+    "verify": "npm run format:check && npm run lint && npm run check && npm test && npm run build && npm run test:browser && npm run test:lighthouse"
   },
   "dependencies": {
     "@tailwindcss/vite": "4.3.3",
@@ -32,6 +33,7 @@
     "@types/node": "24.13.3",
     "eslint": "10.10.0",
     "eslint-plugin-astro": "3.1.0",
+    "lighthouse": "13.4.1",
     "prettier": "3.9.6",
     "prettier-plugin-astro": "0.14.1",
     "typescript": "6.0.3",

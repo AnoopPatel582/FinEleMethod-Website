@@ -4,6 +4,7 @@ import { URL } from 'node:url';
 import { readFile } from 'node:fs/promises';
 import { resolve, extname, sep } from 'node:path';
 const root = resolve('dist');
+const port = Number.parseInt(process.env.PORT ?? '4322', 10);
 const types = {
   '.html': 'text/html',
   '.css': 'text/css',
@@ -30,4 +31,4 @@ createServer(async (req, res) => {
   } catch {
     res.writeHead(404).end('Not found');
   }
-}).listen(4322, '127.0.0.1');
+}).listen(port, '127.0.0.1');

@@ -8,6 +8,7 @@ dist/
 playwright-report/
 test-results/
 .lighthouseci/
+lighthouse-report/
 .agents/skills/tailwind-4-docs/references/docs/
 .agents/skills/tailwind-4-docs/references/docs-index.tsx
 .agents/skills/tailwind-4-docs/references/docs-source.txt
