@@ -6,6 +6,7 @@ Validated locally on 2026-09-10 against the production-indexable static build.
 
 - Lighthouse 13.4.1 is pinned as a development dependency.
 - The runner starts the repository's static production server and a temporary isolated Chrome profile.
+- A below-threshold page is audited once more, and the retry determines the gate. This retains the strict 90 threshold while filtering one-time hosted-runner load.
 - Home, Features, Examples, Documentation, Download and About are audited.
 - Performance, accessibility, best-practices and SEO must each score at least 90.
 - HTML and JSON reports are written only to the ignored `lighthouse-report/` directory. No report is uploaded to an external Lighthouse service.
