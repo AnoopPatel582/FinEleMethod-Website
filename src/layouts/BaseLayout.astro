@@ -22,6 +22,9 @@ const { title, description } = Astro.props;
     <meta name="theme-color" content="#0b1220" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} — FinEleMethod</title>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
     <script is:inline set:html={themeScript} />
   </head>
   <body>

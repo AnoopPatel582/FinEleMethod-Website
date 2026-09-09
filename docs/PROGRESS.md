@@ -105,11 +105,21 @@
 - Formatting, lint, Astro checks, 27 unit tests, the eight-route production build and all 48 Chromium/WebKit scenarios pass locally.
 - The 24 Firefox scenarios fail before startup because of the documented machine-specific launch limitation; all 72 scenarios remain enabled for required clean-runner CI before merge.
 
+## Stage 10: Lighthouse quality gate
+
+- Current Lighthouse 13.4.1 is pinned directly; the unavailable secure upgrade path in `@lhci/cli` was rejected after its dependency audit reported seven high-severity findings.
+- A repository-owned runner audits Home, Features, Examples, Documentation, Download and About with local-only HTML and JSON reports.
+- Performance, accessibility, best-practices and eligible SEO audits must score at least 90.
+- The intentional development `noindex` is the only deferred SEO audit. Raw SEO remains below the launch target until indexing is enabled; every other weighted SEO audit is still gated.
+- The mobile navigation now starts collapsed before first paint when JavaScript is available, eliminating its measured cumulative layout shift while preserving visible no-JavaScript navigation.
+- Local production audits on 2026-09-09 scored 100 for performance, accessibility, best practices and eligible SEO checks on all six public pages.
+- `npm audit` reported zero known dependency vulnerabilities after the final Lighthouse dependency selection.
+
 ## Before launch
 
 - Main branch protection is configured; verify Vercel deployment gating before launch.
 - Verify release metadata, asset links, and download checksums.
-- Extend behavior tests and Axe as real pages are added; add Lighthouse CI.
+- Extend behavior tests and Axe as real pages are added; keep Lighthouse thresholds enforced.
 - Complete supported-browser and 320px-to-ultrawide acceptance.
 - Verify asset licences, canonical domain and robots policy. Add and verify provider privacy wording if a Privacy page is introduced.
 - Replace the foundation page and remove noindex only for production content.

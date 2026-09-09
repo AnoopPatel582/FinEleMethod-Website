@@ -171,3 +171,11 @@
     transform: none;
   }
 }
+@media (width < 80rem) {
+  html.js [data-site-header] .site-navigation {
+    display: none;
+  }
+  html.js [data-site-header][data-menu-open='true'] .site-navigation {
+    display: block;
+  }
+}

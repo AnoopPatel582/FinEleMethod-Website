@@ -19,12 +19,13 @@
 - `npm run verify`: formatting, lint, Astro checks, contrast unit tests, production build and browser/accessibility tests.
 - `npm test`: semantic color contrast checks against the actual CSS tokens.
 - `npm run test:browser`: Chromium, Firefox and WebKit tests against a completed production build.
+- `npm run test:lighthouse`: local Lighthouse quality gates for all six public pages; reports stay in the ignored `lighthouse-report/` directory.
 - `npm run preview`: serve the production build locally after verification.
 - `npm run format`: apply formatting.
 - CI runs the same verification on Linux and Windows.
 - All seven routes remain noindex during development. Home presents the solver, Features documents its scope, Examples presents the analytical comparisons, Documentation provides the first-analysis guide and technical reference map, Download links directly to verified release assets, and About explains the project intent and engineering approach. The original component preview is at `/design-system/`. Deployment remains pending; a Privacy page is deferred until it is needed.
 - Browser screenshots and failure traces are written to ignored test-results/ and playwright-report/ directories.
-- Lighthouse CI and full real-device acceptance remain later release checks.
+- Lighthouse quality gates are automated; full real-device acceptance remains a later release check.
 
 ## Project records
 
