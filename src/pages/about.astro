@@ -1,0 +1,266 @@
+---
+import Badge from '../components/Badge.astro';
+import ButtonLink from '../components/ButtonLink.astro';
+import SiteFrame from '../layouts/SiteFrame.astro';
+import { solverDocument, solverEvidence } from '../config/solver-evidence';
+
+const principles = [
+  {
+    index: '01',
+    title: 'Keep the Method Visible',
+    detail:
+      'Finite-element formulations, sparse assembly and numerical solution are custom C++ implementations so each layer can be studied and explained.',
+  },
+  {
+    index: '02',
+    title: 'Build in Verified Increments',
+    detail:
+      'Each capability begins in the command-line engine, receives focused tests, and reaches the Windows workbench only after the underlying path works.',
+  },
+  {
+    index: '03',
+    title: 'Publish the Evidence',
+    detail:
+      'Analytical comparisons, formulation notes, acceptance records and automated checks accompany the software instead of leaving results as unsupported claims.',
+  },
+] as const;
+
+const decisions = [
+  ['Core', 'C++20 · MSVC · CMake'],
+  ['Elements', 'Q4 plane stress · Q4 plane strain · H8 solid'],
+  ['System', 'Element matrices → COO → CSR → Conjugate Gradient'],
+  ['Interfaces', 'Standalone CLI · Native wxWidgets workbench'],
+  ['Storage', 'File-based projects · Immutable numbered runs'],
+  ['Results', 'VTU fields for ParaView · JSON run summaries'],
+] as const;
+
+const journey = [
+  {
+    title: 'Establish the Core',
+    detail:
+      'Define matrices, materials, model entities, constraints and a testable command-line boundary.',
+  },
+  {
+    title: 'Formulate and Validate',
+    detail:
+      'Implement Q4 and H8 elements, then compare their behavior with analytical reference problems.',
+  },
+  {
+    title: 'Build the Workbench',
+    detail:
+      'Add project storage, model inspection, background analysis, cancellation and durable run history.',
+  },
+  {
+    title: 'Package the Application',
+    detail:
+      'Stage dependencies, verify clean-machine behavior and publish a portable ZIP and Windows installer.',
+  },
+] as const;
+---
+
+<SiteFrame
+  title="About"
+  description="Learn why FinEleMethod was created, how its solver and Windows workbench were developed, and which engineering principles guide the project."
+>
+  <main id="main" tabindex="-1" class="page-container flex-1">
+    <header class="border-b border-line py-14 sm:py-20">
+      <Badge>Independent Project · C++20 · Windows</Badge>
+      <div class="mt-6 grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+        <div>
+          <h1 class="max-w-4xl text-4xl font-semibold sm:text-6xl">
+            Learn the method by building the whole path.
+          </h1>
+          <p class="mt-6 max-w-3xl text-lg text-muted">
+            FinEleMethod is a finite-element solver and native Windows workbench
+            developed from scratch as a serious software-engineering and
+            learning project—not only as an academic submission.
+          </p>
+        </div>
+        <div class="border-l-2 border-accent pl-5">
+          <p class="eyebrow text-accent">Created By</p>
+          <p class="mt-3 text-2xl font-semibold">Anoop Patel</p>
+          <a
+            class="text-link mt-3 inline-flex min-h-11 items-center"
+            href="https://github.com/AnoopPatel582"
+          >
+            View GitHub Profile
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <nav class="border-b border-line py-6" aria-label="About this project">
+      <ul class="flex flex-wrap gap-2">
+        <li>
+          <a
+            class="inline-flex min-h-11 items-center rounded-control border border-line bg-surface px-4 py-2 text-sm hover:bg-elevated hover:underline"
+            href="#principles"
+          >
+            Principles
+          </a>
+        </li>
+        <li>
+          <a
+            class="inline-flex min-h-11 items-center rounded-control border border-line bg-surface px-4 py-2 text-sm hover:bg-elevated hover:underline"
+            href="#architecture"
+          >
+            Architecture Decisions
+          </a>
+        </li>
+        <li>
+          <a
+            class="inline-flex min-h-11 items-center rounded-control border border-line bg-surface px-4 py-2 text-sm hover:bg-elevated hover:underline"
+            href="#journey"
+          >
+            Development Journey
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <section
+      id="principles"
+      aria-labelledby="principles-title"
+      class="py-12 sm:py-16"
+    >
+      <div class="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+        <div>
+          <p class="eyebrow text-accent">Project Intent</p>
+          <h2 id="principles-title" class="mt-4 text-3xl font-semibold">
+            Principles Behind the Work
+          </h2>
+          <p class="mt-4 text-muted">
+            The project treats implementation, validation and documentation as
+            one engineering workflow.
+          </p>
+        </div>
+        <ol
+          class="grid gap-px overflow-hidden rounded-panel border border-line bg-line"
+        >
+          {
+            principles.map(({ index, title, detail }) => (
+              <li class="grid gap-4 bg-surface p-6 sm:grid-cols-[3rem_1fr]">
+                <span class="font-mono text-accent" aria-hidden="true">
+                  {index}
+                </span>
+                <div>
+                  <h3 class="text-xl font-semibold">{title}</h3>
+                  <p class="mt-3 text-muted">{detail}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <section
+      id="architecture"
+      aria-labelledby="architecture-title"
+      class="border-y border-line py-12 sm:py-16"
+    >
+      <div class="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+        <div>
+          <p class="eyebrow text-accent">Technical Identity</p>
+          <h2 id="architecture-title" class="mt-4 text-3xl font-semibold">
+            Decisions That Shape the Software
+          </h2>
+          <p class="mt-4 text-muted">
+            A narrow, explicit scope keeps the solver understandable while the
+            surrounding application follows production-style practices.
+          </p>
+        </div>
+        <dl
+          class="grid gap-px overflow-hidden rounded-panel border border-line bg-line sm:grid-cols-2"
+        >
+          {
+            decisions.map(([term, detail]) => (
+              <div class="min-w-0 bg-surface p-6">
+                <dt class="font-mono text-sm text-accent">{term}</dt>
+                <dd class="mt-3 text-muted">{detail}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+      <div class="mt-8 flex flex-wrap gap-4 lg:ml-[calc(37.5%+1rem)]">
+        <ButtonLink href={solverDocument('docs/ARCHITECTURE.md')}>
+          Read the Architecture
+        </ButtonLink>
+        <ButtonLink
+          href={solverDocument('docs/PROJECT_DECISIONS.md')}
+          variant="secondary"
+        >
+          Review Project Decisions
+        </ButtonLink>
+      </div>
+    </section>
+
+    <section
+      id="journey"
+      aria-labelledby="journey-title"
+      class="py-12 sm:py-16"
+    >
+      <div class="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+        <div>
+          <p class="eyebrow text-accent">Feature by Feature</p>
+          <h2 id="journey-title" class="mt-4 text-3xl font-semibold">
+            From Numerical Core to Windows Release
+          </h2>
+        </div>
+        <ol class="grid gap-6 sm:grid-cols-2">
+          {
+            journey.map(({ title, detail }, index) => (
+              <li class="rounded-panel border border-line bg-surface p-6">
+                <p class="font-mono text-sm text-accent" aria-hidden="true">
+                  {String(index + 1).padStart(2, '0')}
+                </p>
+                <h3 class="mt-4 text-xl font-semibold">{title}</h3>
+                <p class="mt-3 text-muted">{detail}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="responsibility-title"
+      class="mb-14 grid gap-8 rounded-panel border border-line bg-elevated p-6 sm:mb-20 sm:p-8 lg:grid-cols-[0.75fr_1.25fr]"
+    >
+      <div>
+        <p class="eyebrow text-accent">Engineering Responsibility</p>
+        <h2 id="responsibility-title" class="mt-4 text-2xl font-semibold">
+          Transparent Scope, Explicit Limits
+        </h2>
+      </div>
+      <div>
+        <p class="text-muted">
+          FinEleMethod currently addresses linear-static solid mechanics with Q4
+          and H8 elements. It does not provide automatic unit conversion,
+          nonlinear analysis, contact, dynamics or automatic meshing. Supply
+          consistent units and independently validate every model before
+          engineering use.
+        </p>
+        <p class="mt-5 text-muted">
+          The source is publicly viewable, but no open-source licence has been
+          selected. Copyright remains reserved.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+          <a
+            class="text-link inline-flex min-h-11 items-center"
+            href={solverEvidence.repository}
+          >
+            View the Solver Repository
+          </a>
+          <a
+            class="text-link inline-flex min-h-11 items-center"
+            href="/examples/"
+          >
+            Review Validation Examples
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</SiteFrame>
