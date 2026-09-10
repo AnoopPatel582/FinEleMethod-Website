@@ -115,11 +115,19 @@
 - Local production audits on 2026-09-09 scored 100 for performance, accessibility, best practices and eligible SEO checks on all six public pages.
 - `npm audit` reported zero known dependency vulnerabilities after the final Lighthouse dependency selection.
 
-## Before launch
+## Stage 11: Production deployment and indexing
 
-- Main branch protection is configured; verify Vercel deployment gating before launch.
-- Verify release metadata, asset links, and download checksums.
+- The public site is deployed at `https://fin-ele-method-website.vercel.app/`.
+- Shared metadata now uses the deployed origin for canonical URLs and allows the six public routes to be indexed.
+- `robots.txt` permits crawling and identifies a sitemap containing Home, Features, Examples, Documentation, Download and About.
+- The internal `/design-system/` route remains `noindex, nofollow` and is excluded from the sitemap.
+- The footer now identifies version 0.1.0 and its supported Windows platform instead of describing the site as unpublished.
+- The production SEO audit is fully enforced with no deferred crawlability exception.
+- Local Lighthouse scores on 2026-09-10 were 100 for accessibility, best practices and SEO on every public page; performance was 100 on five pages and 99 on Download.
+
+## Remaining post-deployment checks
+
+- Verify that Vercel production deployment follows the protected `main` branch workflow.
 - Extend behavior tests and Axe as real pages are added; keep Lighthouse thresholds enforced.
 - Complete supported-browser and 320px-to-ultrawide acceptance.
-- Verify asset licences, canonical domain and robots policy. Add and verify provider privacy wording if a Privacy page is introduced.
-- Replace the foundation page and remove noindex only for production content.
+- Complete asset-licence review. Add and verify provider privacy wording if a Privacy page is introduced.

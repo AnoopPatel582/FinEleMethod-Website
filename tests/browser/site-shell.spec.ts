@@ -56,10 +56,39 @@ test('every navigation route works and keeps the saved theme', async ({
     await expect(page.locator('main h1')).toHaveCount(1);
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
       'content',
-      'noindex, nofollow',
+      'index, follow',
+    );
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      new URL(item.href, 'https://fin-ele-method-website.vercel.app').href,
     );
   }
   expect(errors).toEqual([]);
+});
+
+test('production discovery files expose only public routes', async ({
+  page,
+}) => {
+  const robots = await page.request.get('/robots.txt');
+  expect(await robots.text()).toContain('Allow: /');
+  expect(await robots.text()).toContain(
+    'Sitemap: https://fin-ele-method-website.vercel.app/sitemap.xml',
+  );
+
+  const sitemap = await page.request.get('/sitemap.xml');
+  const sitemapText = await sitemap.text();
+  for (const { href } of navigation) {
+    expect(sitemapText).toContain(
+      new URL(href, 'https://fin-ele-method-website.vercel.app').href,
+    );
+  }
+  expect(sitemapText).not.toContain('/design-system/');
+
+  await page.goto('/design-system/');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    'content',
+    'noindex, nofollow',
+  );
 });
 
 for (const theme of ['light', 'dark'] as const) {

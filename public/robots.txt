@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://fin-ele-method-website.vercel.app/sitemap.xml
