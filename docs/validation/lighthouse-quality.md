@@ -6,6 +6,7 @@ Validated locally on 2026-09-10 against the production-indexable static build.
 
 - Lighthouse 13.4.1 is pinned as a development dependency.
 - The runner starts the repository's static production server and a temporary isolated Chrome profile.
+- If Chrome's temporary debugging port refuses the first Lighthouse connection, the runner restarts Chrome with a fresh profile and retries that audit once.
 - A below-threshold page is audited once more, and the retry determines the gate. This retains the strict 90 threshold while filtering one-time hosted-runner load.
 - Home, Features, Examples, Documentation, Download and About are audited.
 - Performance, accessibility, best-practices and SEO must each score at least 90.
@@ -19,7 +20,7 @@ Every weighted SEO audit, including crawlability, is enforced. The six public pa
 
 All six public pages scored:
 
-- Performance: 100 on five pages and 99 on Download
+- Performance: 100
 - Accessibility: 100
 - Best practices: 100
 - SEO: 100

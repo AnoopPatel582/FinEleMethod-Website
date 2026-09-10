@@ -52,26 +52,55 @@ const server = spawn(process.execPath, ['tests/serve.mjs'], {
 
 let chrome;
 let failed = false;
-let chromeProfile;
+const chromeProfiles = [];
+
+async function startChrome() {
+  const chromeProfile = await mkdtemp(
+    join(tmpdir(), 'finelemethod-lighthouse-'),
+  );
+  chromeProfiles.push(chromeProfile);
+  return launch({
+    chromeFlags: ['--headless=new', '--no-sandbox', '--disable-gpu'],
+    userDataDir: chromeProfile,
+  });
+}
+
+async function stopChrome() {
+  if (!chrome) return;
+  const activeChrome = chrome;
+  chrome = undefined;
+  await activeChrome.kill();
+}
+
+async function auditRoute(route) {
+  const runAudit = () =>
+    lighthouse(`${origin}${route}`, {
+      port: chrome.port,
+      logLevel: 'error',
+      output: ['html', 'json'],
+      onlyCategories: Object.keys(categoryThresholds),
+    });
+
+  try {
+    return await runAudit();
+  } catch (error) {
+    if (!String(error).includes('ECONNREFUSED')) throw error;
+    console.warn(
+      `${route} could not reach Chrome's debugging port; restarting Chrome and retrying once.`,
+    );
+    await stopChrome();
+    chrome = await startChrome();
+    return runAudit();
+  }
+}
 
 try {
   await waitForServer();
   await mkdir(reportDirectory, { recursive: true });
-  chromeProfile = await mkdtemp(join(tmpdir(), 'finelemethod-lighthouse-'));
-  chrome = await launch({
-    chromeFlags: ['--headless=new', '--no-sandbox', '--disable-gpu'],
-    userDataDir: chromeProfile,
-  });
+  chrome = await startChrome();
 
   for (const route of routes) {
-    const runAudit = () =>
-      lighthouse(`${origin}${route}`, {
-        port: chrome.port,
-        logLevel: 'error',
-        output: ['html', 'json'],
-        onlyCategories: Object.keys(categoryThresholds),
-      });
-    let result = await runAudit();
+    let result = await auditRoute(route);
     if (!result) throw new Error(`Lighthouse returned no result for ${route}.`);
 
     const belowThreshold = Object.entries(categoryThresholds).some(
@@ -82,7 +111,7 @@ try {
       console.warn(
         `${route} scored below a Lighthouse threshold; retrying once to exclude transient runner load.`,
       );
-      result = await runAudit();
+      result = await auditRoute(route);
       if (!result) {
         throw new Error(`Lighthouse returned no retry result for ${route}.`);
       }
@@ -113,9 +142,9 @@ try {
     );
   }
 } finally {
-  if (chrome) chrome.kill();
+  await stopChrome();
   server.kill();
-  if (chromeProfile) {
+  for (const chromeProfile of chromeProfiles) {
     try {
       await rm(chromeProfile, {
         recursive: true,
