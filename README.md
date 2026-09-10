@@ -1,6 +1,7 @@
 # FinEleMethod Website
 
 - Product website for the Windows FinEleMethod finite-element solver.
+- Live website: [fin-ele-method-website.vercel.app](https://fin-ele-method-website.vercel.app/).
 - Current pages: evidence-based Home, Features, Examples, Documentation, Download and About pages, shared responsive shell, original ParaView result image, and System/Light/Dark themes.
 - No backend or database.
 - Copyright © Anoop Patel. All rights reserved. Third-party dependencies retain their licences.
